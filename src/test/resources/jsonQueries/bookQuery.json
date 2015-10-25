@@ -1,0 +1,10 @@
+{
+
+	"not":[{
+		"or": [{
+			"ilike":[ ["title","ornare%"],["title","Vestibulum%"] ]
+		}]
+	}],
+	"gt":[ ["unitsSold",20] ],
+	"sort":[ ["id","desc"] ]
+}
