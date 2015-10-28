@@ -74,11 +74,11 @@
         </property>
     </bean>  
     
-	<bean id="bookDAO" class="com.hgj.daobot.test.dao.BookDAOImpl"/>	
+	<bean id="bookDAO" class="com.github.hguerrerojaime.daobot.test.dao.BookDAOImpl"/>	
 	
-	<bean id="authorDAO" class="com.hgj.daobot.test.dao.AuthorDAOImpl"/>	
+	<bean id="authorDAO" class="com.github.hguerrerojaime.daobot.test.dao.AuthorDAOImpl"/>	
 	
-	<bean id="genericDAO" class="com.hgj.daobot.dao.GenericDAOImpl"/>	
+	<bean id="genericDAO" class="com.github.hguerrerojaime.daobot.dao.GenericDAOImpl"/>	
 	<!--
 	<bean id="recruitingAppDS" class="org.springframework.jndi.JndiObjectFactoryBean" scope="singleton">
 	    <property name="jndiName" value="java:comp/env/jdbc/recruitingAppDS" />
