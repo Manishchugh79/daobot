@@ -1,5 +1,6 @@
 package com.github.hguerrerojaime.daobot.test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -58,7 +59,7 @@ public class CBvsHQLTest {
 		}});
 		
 		
-		assertTrue(!bookResultSet.list().isEmpty());
+		assertFalse(bookResultSet.list().isEmpty());
 		
 	}
 	
