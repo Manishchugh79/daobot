@@ -7,7 +7,7 @@
 
 ----------
 
-# Basic Example Usage
+# Criteria Builder (CB) and Filter Builder (FB) Basic Usage
 
 Find all Books where "title" like "mon%"
 
