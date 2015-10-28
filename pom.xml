@@ -6,6 +6,10 @@
     <artifactId>daobot</artifactId>
     <version>1.0.CR1</version>
     <packaging>jar</packaging>
+    
+    <name>DAOBOT</name>
+	<description>Java DAO (Data Access Object) Generics. Database Queries made easy to read and to maintain, Can transform JSON Objects into queries for Back-End/Front-End communication</description>
+	<url>https://github.com/hguerrerojaime/daobot</url>
 
      
     <properties>
