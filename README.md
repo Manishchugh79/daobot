@@ -1,6 +1,8 @@
 # DAOBOT
 - Java DAO (Data Access Object) Generics.
 
+- Based in GORM (Grails ORM) Criteria Builder.
+
 - Database Queries made easy to read and to maintain.
 
 - Can transform JSON Objects into queries for Back-End/Front-End communication.
