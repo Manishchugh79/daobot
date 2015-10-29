@@ -5,7 +5,7 @@
 
 - Database Queries made easy to read and to maintain.
 
-- Can transform JSON Objects into queries for Back-End/Front-End communication.
+- Can transform JSON Objects into queries for Back-End/Front-End communication. Let's call it JSON Query Language, or JSQL for now (Details Below).
 
 ----------
 
@@ -70,3 +70,55 @@ Find all Books where id equals 100 or title equals "I Love Grails"
 		assertTrue(bookResultSet.count() > 0);
 		
 	}
+	
+# Basic Structure
+
+The Entity Object
+
+	@Entity
+	@Table(name="book")
+	public class BookEO implements EntityObject<Long>{
+		
+		@Id
+		@GeneratedValue(strategy=GenerationType.AUTO)
+		private Long id;
+		
+		@Column(name="title")
+		private String title;
+		
+		@Column(name="description")
+		private String description;
+		
+		@Column(name="release_date")
+		private Date releaseDate;
+		
+		@Column(name="units_sold")
+		private Integer unitsSold;
+		
+		@Column(name="units_bought")
+		private Integer unitsBought;
+		
+		@ManyToOne
+		@JoinColumn(name="author_id")
+		private AuthorEO author;
+	
+		... setters and getters
+		
+	}
+	
+The DAO
+
+	public interface BookDAO extends DAO<BookEO, Long> {
+	
+	}
+	
+The DAO Implementation
+
+	public class BookDAOImpl extends DAOImpl<BookEO, Long> implements BookDAO {
+	
+		public BookDAOImpl() {
+			super(BookEO.class);
+		}
+	
+	}
+	
