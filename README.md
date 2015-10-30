@@ -122,7 +122,7 @@ The DAO Implementation
 	
 	}
 
-# JSON Query Languaje JSQL
+# JSON Query Languaje (JSQL)
 
 This is pretty much a JSON object that allows the use of dynamic queries through the Front-End (It uses Jackson JSON processing api).
 
