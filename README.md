@@ -1,7 +1,7 @@
 # DAOBOT
 - Java DAO (Data Access Object) Generics.
 
-- Based in GORM (Grails ORM) Criteria Builder.
+- Based in GORM (Grails ORM) Criteria Builder. For more information about the criteria methods [Click here](http://grails.github.io/grails-doc/3.1.x/ref/Domain%20Classes/createCriteria.html). NOTE: Some methods are not supported (yet).
 
 - Database Queries made easy to read and to maintain.
 
