@@ -121,4 +121,71 @@ The DAO Implementation
 		}
 	
 	}
+
+# JSON Query Languaje JSQL
+
+This is pretty much a JSON object that allows the use of dynamic queries through the Front-End (It uses Jackson JSON processing api).
+
+Implementation Test
+
+	@Test
+	@Transactional
+	public void testSearchAuthorWithBookCriteria() throws JsonParseException, JsonMappingException, IOException{
+        
+        //Load your JSON query string from somewhere
+        String jsonQuery = TestUtils.loadJsonQuery("bookQuery.json"); 
+        
+        DResultSet<BookEO> bookRS = bookDAO.findAll(new JsQLCriteriaQuery(jsonQuery));
+         
+        assertTrue(bookRS.count() > 0);
+    }
+    
+bookQuery.json
+
+	{
+		"eq": [
+			["title","I Love Grails"]
+		]
+		
+	}
 	
+JSQL Syntax
+
+	{
+		"condition":[
+			...place all the blocks of this condition type here
+			[condition arguments]
+		],
+		
+		...optional sort if you want
+		"sort":[
+			["sortField1"], ..default asc
+			["sortField2","desc"] order defined explicit
+		]
+	}
+
+# Some JSQL Examples
+
+Find all books where title is neither ilike (case-insensitive like) ornare% nor Vestibulum% and unitsSold are greater than 20, order by id desc
+
+	{
+		"not":[{
+			"or": [{
+				"ilike":[ 
+					["title","ornare%"],
+					["title","Vestibulum%"] 
+				]
+			}]
+		}],
+		"gt":[ ["unitsSold",20] ],
+		"sort":[ ["id","desc"] ]
+	}
+
+Find all books where title like "Vestibulum%" and unitsSold equals to 0
+
+	{
+		"like":[ 
+			["title","Vestibulum%"] 
+		],
+		"eq":[ ["unitsSold",0] ]
+	}
