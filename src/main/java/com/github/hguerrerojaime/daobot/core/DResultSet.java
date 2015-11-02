@@ -19,7 +19,8 @@ public class DResultSet<T extends EntityObject<? extends Serializable>> {
     // instance variables
     //
 
-	private Query result;
+	private Query resultQuery;
+	private Query countQuery;
 	private Long totalCount;
 	
 	
@@ -32,10 +33,10 @@ public class DResultSet<T extends EntityObject<? extends Serializable>> {
 	 * @param result The result Query
 	 * @param totalCount the total count of the results found
 	 */
-	public DResultSet(Query result, Long totalCount) {
+	public DResultSet(Query resultQuery, Query countQuery) {
 		super();
-		this.result = result;
-		this.totalCount = totalCount;
+		this.resultQuery = resultQuery;
+		this.countQuery = countQuery;
 	}
 	
 	
@@ -43,7 +44,7 @@ public class DResultSet<T extends EntityObject<? extends Serializable>> {
 	 * @return the Result List of the query
 	 */
 	public List<T> list() {
-		return result.getResultList();
+		return resultQuery.getResultList();
 	}
 	
 	/**
@@ -51,12 +52,12 @@ public class DResultSet<T extends EntityObject<? extends Serializable>> {
 	 */
 	public T get() {
 		
-		int resultListSize = result.getResultList().size();
+		int resultListSize = resultQuery.getResultList().size();
 		
 		if(resultListSize == 0){
 			return null;
 		}else{
-			return (T) result.getResultList().get(0);
+			return (T) resultQuery.getResultList().get(0);
 		}
 	
 	}
@@ -69,6 +70,11 @@ public class DResultSet<T extends EntityObject<? extends Serializable>> {
 	 * @return The total count of the records found with the criteria
 	 */
 	public Long count() {
+	    
+	    if(totalCount == null){
+	        totalCount = (Long) countQuery.getSingleResult();
+	    }
+	    
 		return totalCount;
 	}
 
