@@ -61,6 +61,22 @@ public class BookDAOTest {
 	}
 	
 	@Test
+    @Transactional
+    public void testGetExistingIdCriteria(){
+        
+        BookEO book = TestUtils.generateBook("My New Book");
+        bookDAO.save(book); 
+        
+        
+        final Long bookId = book.getId();
+        
+        BookEO bookFound = bookDAO.find(new CB(){{
+            idEq(bookId);
+        }});
+        assertNotNull(bookFound);
+    }
+	
+	@Test
 	@Transactional
 	public void testGetNonExistingId(){
 		
@@ -489,6 +505,80 @@ public class BookDAOTest {
         
     }
 	
+	@Test
+    @Transactional
+    public void testFindAllBooksUnitsSoldLT(){
+	    
+	    final int UNITS_SOLD = 100;
+        
+        TestUtils.generateAndSaveBooksWithAutor("JPAUtils", 30, bookDAO, authorDAO);
+
+        DResultSet<BookEO> bookRS = bookDAO.findAll(new CB(){{
+            
+              lt("unitsSold",UNITS_SOLD);
+            
+        }});
+
+        assertFalse(bookRS.list().isEmpty());
+        assertTrue(bookRS.count() > 0);
+        
+    }
 	
+	@Test
+    @Transactional
+    public void testFindAllBooksUnitsSoldLE(){
+        
+        final int UNITS_SOLD = 100;
+        
+        TestUtils.generateAndSaveBooksWithAutor("JPAUtils", 30, bookDAO, authorDAO);
+
+        DResultSet<BookEO> bookRS = bookDAO.findAll(new CB(){{
+            
+              le("unitsSold",UNITS_SOLD);
+            
+        }});
+
+        assertFalse(bookRS.list().isEmpty());
+        assertTrue(bookRS.count() > 0);
+        
+    }
+	
+	@Test
+    @Transactional
+    public void testFindAllBooksUnitsSoldGT(){
+        
+        final int UNITS_SOLD = 100;
+        
+        TestUtils.generateAndSaveBooksWithAutor("JPAUtils", 30, bookDAO, authorDAO);
+
+        DResultSet<BookEO> bookRS = bookDAO.findAll(new CB(){{
+            
+              gt("unitsSold",UNITS_SOLD);
+            
+        }});
+
+        assertFalse(bookRS.list().isEmpty());
+        assertTrue(bookRS.count() > 0);
+        
+    }
+	
+	@Test
+    @Transactional
+    public void testFindAllBooksUnitsSoldGE(){
+        
+        final int UNITS_SOLD = 100;
+        
+        TestUtils.generateAndSaveBooksWithAutor("JPAUtils", 30, bookDAO, authorDAO);
+
+        DResultSet<BookEO> bookRS = bookDAO.findAll(new CB(){{
+            
+              ge("unitsSold",UNITS_SOLD);
+            
+        }});
+
+        assertFalse(bookRS.list().isEmpty());
+        assertTrue(bookRS.count() > 0);
+        
+    }
 
 }
