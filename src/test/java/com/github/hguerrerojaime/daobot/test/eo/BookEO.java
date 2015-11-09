@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
 
@@ -139,5 +141,10 @@ public class BookEO implements EntityObject<Long>{
 		this.unitsBought = unitsBought;
 	}
 
+	
+	@Override
+	public String toString(){
+	    return ToStringBuilder.reflectionToString(this);
+	}
 
 }

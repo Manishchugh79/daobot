@@ -44,7 +44,7 @@ public class PredicateGenerator<T extends EntityObject<K>, K extends Serializabl
 		Field idEqReflectField = Utils.getIdField(entityClass);
 
 		if (idEqReflectField == null) {
-			throw new IllegalStateException(
+			throw new IllegalArgumentException(
 					"The entity object does not have a field with the @Id annotation");
 		}
 
@@ -122,81 +122,80 @@ public class PredicateGenerator<T extends EntityObject<K>, K extends Serializabl
 	public Predicate buildGt() {
 		String gtFieldName = String.valueOf(conditionFilter.getArgs()[0]);
 
-		Expression<Number> gtField = eoPath.get(gtFieldName);
-		Number gtValue = (Number) conditionFilter.getArgs()[1];
+		Expression gtField = eoPath.get(gtFieldName);
+		Comparable gtValue = (Comparable) conditionFilter.getArgs()[1];
 
-		return criteriaBuilder.gt(gtField, gtValue);
+		return criteriaBuilder.greaterThan(gtField, gtValue);
 	}
 
 	public Predicate buildGtProperty() {
 		String fieldName1 = String.valueOf(conditionFilter.getArgs()[0]);
 		String fieldName2 = String.valueOf(conditionFilter.getArgs()[1]);
 
-		Expression<Number> field1 = eoPath.get(fieldName1);
+		Expression field1 = eoPath.get(fieldName1);
+		Expression field2 = eoPath.get(fieldName2);
 
-		Expression<Number> field2 = eoPath.get(fieldName2);
-
-		return criteriaBuilder.gt(field1, field2);
+		return criteriaBuilder.greaterThan(field1, field2);
 	}
 
 	public Predicate buildGe() {
 		String geFieldName = String.valueOf(conditionFilter.getArgs()[0]);
 
-		Expression<Number> geField = eoPath.get(geFieldName);
-		Number geValue = (Number) conditionFilter.getArgs()[1];
+		Expression geField = eoPath.get(geFieldName);
+		Comparable geValue = (Comparable) conditionFilter.getArgs()[1];
 
-		return criteriaBuilder.ge(geField, geValue);
+		return criteriaBuilder.greaterThanOrEqualTo(geField, geValue);
 	}
 
 	public Predicate buildGeProperty() {
 		String fieldName1 = String.valueOf(conditionFilter.getArgs()[0]);
 		String fieldName2 = String.valueOf(conditionFilter.getArgs()[1]);
 
-		Expression<Number> field1 = eoPath.get(fieldName1);
+		Expression field1 = eoPath.get(fieldName1);
 
-		Expression<Number> field2 = eoPath.get(fieldName2);
+		Expression field2 = eoPath.get(fieldName2);
 
-		return criteriaBuilder.ge(field1, field2);
+		return criteriaBuilder.greaterThanOrEqualTo(field1, field2);
 	}
 
 	public Predicate buildLt() {
 		String ltFieldName = String.valueOf(conditionFilter.getArgs()[0]);
 
-		Expression<Number> ltField = eoPath.get(ltFieldName);
-		Number ltValue = (Number) conditionFilter.getArgs()[1];
+		Expression ltField = eoPath.get(ltFieldName);
+		Comparable ltValue = (Comparable) conditionFilter.getArgs()[1];
 
-		return criteriaBuilder.lt(ltField, ltValue);
+		return criteriaBuilder.lessThan(ltField, ltValue);
 	}
 
 	public Predicate buildLtProperty() {
 		String fieldName1 = String.valueOf(conditionFilter.getArgs()[0]);
 		String fieldName2 = String.valueOf(conditionFilter.getArgs()[1]);
 
-		Expression<Number> field1 = eoPath.get(fieldName1);
+		Expression field1 = eoPath.get(fieldName1);
 
-		Expression<Number> field2 = eoPath.get(fieldName2);
+		Expression field2 = eoPath.get(fieldName2);
 
-		return criteriaBuilder.lt(field1, field2);
+		return criteriaBuilder.lessThan(field1, field2);
 	}
 
 	public Predicate buildLe() {
 		String leFieldName = String.valueOf(conditionFilter.getArgs()[0]);
 
-		Expression<Number> leField = eoPath.get(leFieldName);
-		Number leValue = (Number) conditionFilter.getArgs()[1];
+		Expression leField = eoPath.get(leFieldName);
+		Comparable leValue = (Comparable) conditionFilter.getArgs()[1];
 
-		return criteriaBuilder.le(leField, leValue);
+		return criteriaBuilder.lessThanOrEqualTo(leField, leValue);
 	}
 
 	public Predicate buildLeProperty() {
 		String fieldName1 = String.valueOf(conditionFilter.getArgs()[0]);
 		String fieldName2 = String.valueOf(conditionFilter.getArgs()[1]);
 
-		Expression<Number> field1 = eoPath.get(fieldName1);
+		Expression field1 = eoPath.get(fieldName1);
 
-		Expression<Number> field2 = eoPath.get(fieldName2);
+		Expression field2 = eoPath.get(fieldName2);
 
-		return criteriaBuilder.le(field1, field2);
+		return criteriaBuilder.lessThanOrEqualTo(field1, field2);
 	}
 
 	public Predicate buildLike() {
@@ -246,14 +245,14 @@ public class PredicateGenerator<T extends EntityObject<K>, K extends Serializabl
 	}
 
 	public Predicate buildBetween() {
-		Expression<? extends Comparable> betweenField = eoPath.get(String
+		Expression betweenField = eoPath.get(String
 				.valueOf(conditionFilter.getArgs()[0]));
 
 		Object betweenLowValArg = conditionFilter.getArgs()[1];
 		Object betweenHighValArg = conditionFilter.getArgs()[2];
 
-		Comparable<?> betweenLowVal = (Comparable<?>) betweenLowValArg;
-		Comparable<?> betweenHighVal = (Comparable<?>) betweenHighValArg;
+		Comparable betweenLowVal = (Comparable) betweenLowValArg;
+		Comparable betweenHighVal = (Comparable) betweenHighValArg;
 
 		return criteriaBuilder.between(betweenField, betweenLowVal,
 				betweenHighVal);

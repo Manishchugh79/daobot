@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -465,6 +466,28 @@ public class BookDAOTest {
 		
 	}
 	
+	
+	@Test
+    @Transactional
+    public void testSearchAuthorWithBookReleaseDateCriteria(){
+        
+        TestUtils.generateAndSaveBooksWithAutor("JPAUtils", 30, bookDAO, authorDAO);
+
+        DResultSet<AuthorEO> autorRS = authorDAO.findAll(new CB(){{
+            
+
+            join("books",new FB(){{
+                
+                gt("releaseDate",new Date());
+                
+            }});
+            
+        }});
+
+        assertFalse(autorRS.list().isEmpty());
+        assertTrue(autorRS.count() > 0);
+        
+    }
 	
 	
 

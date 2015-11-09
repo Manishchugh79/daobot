@@ -11,6 +11,7 @@ import com.github.hguerrerojaime.daobot.core.ConditionFilter.Type;
  * @author Humberto Guerrero Jaime
  *
  */
+@SuppressWarnings("rawtypes")
 public class FB extends AbstracQueryBuilder{
 	
 	private FilterGroup filterBuild;
@@ -163,7 +164,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @param value
 	 * @return
 	 */
-	public FB gt(String fieldName,Number value){
+	public FB gt(String fieldName,Comparable value){
 		addQueryFilter(new ConditionFilter(Type.GT, new Object[]{ fieldName,value }));
 		return this;
 	}
@@ -187,7 +188,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @param value
 	 * @return
 	 */
-	public FB ge(String fieldName,Number value){
+	public FB ge(String fieldName,Comparable value){
 		addQueryFilter(new ConditionFilter(Type.GE, new Object[]{ fieldName,value }));
 		return this;
 	}
@@ -211,7 +212,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @param value
 	 * @return
 	 */
-	public FB lt(String fieldName,Number value){
+	public FB lt(String fieldName,Comparable value){
 		addQueryFilter(new ConditionFilter(Type.LT, new Object[]{ fieldName,value }));
 		return this;
 	}
@@ -235,7 +236,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @param value
 	 * @return
 	 */
-	public FB le(String fieldName,Number value){
+	public FB le(String fieldName,Comparable value){
 		addQueryFilter(new ConditionFilter(Type.LE, new Object[]{ fieldName,value }));
 		return this;
 	}
@@ -316,7 +317,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @param highValue
 	 * @return
 	 */
-	public FB between(String fieldName,Comparable<?> lowValue,Comparable<?> highValue){
+	public FB between(String fieldName,Comparable lowValue,Comparable highValue){
 		addQueryFilter(new ConditionFilter(Type.BETWEEN, new Object[]{ fieldName,lowValue,highValue }));
 		return this;
 	}

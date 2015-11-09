@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
 @Entity
@@ -118,6 +120,9 @@ public class AuthorEO implements EntityObject<Long>{
 		return id;
 	}
 	
-	
+	@Override
+    public String toString(){
+        return ToStringBuilder.reflectionToString(this);
+    }
 
 }

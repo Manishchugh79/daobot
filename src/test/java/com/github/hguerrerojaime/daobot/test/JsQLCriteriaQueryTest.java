@@ -1,4 +1,4 @@
-package com.github.hguerrerojaime.daobot.core;
+package com.github.hguerrerojaime.daobot.test;
 
 
 import static org.junit.Assert.assertTrue;
@@ -52,18 +52,5 @@ public class JsQLCriteriaQueryTest {
 
     }
     
-    /*
-    @Test
-    public void test() throws JsonParseException, JsonMappingException, IOException {
-        
-
-        DResultSet<BookEO> bookRS = genericDAO.findAll(BookEO.class, new DCB(){{
-            ilike("title","ornare%");
-        }});
-        
-        System.out.println(bookRS.count());
-        
-    }
-    */
 
 }
