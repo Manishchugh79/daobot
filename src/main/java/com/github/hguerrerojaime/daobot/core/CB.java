@@ -12,10 +12,10 @@ public class CB extends FB{
 	private List<QuerySort> sortList;
 	
 	public CB() {
-		this(FilterGroup.Type.AND);
+		this(FilterGroupType.AND);
 	}
 	
-	public CB(FilterGroup.Type filterGroupType){
+	public CB(FilterGroupType filterGroupType){
 		super(filterGroupType);
 		sortList = new ArrayList<QuerySort>();
 	}

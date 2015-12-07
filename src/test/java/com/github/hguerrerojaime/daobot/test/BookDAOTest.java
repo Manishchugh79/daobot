@@ -71,7 +71,13 @@ public class BookDAOTest {
         final Long bookId = book.getId();
         
         BookEO bookFound = bookDAO.find(new CB(){{
-            idEq(bookId);
+            
+            or(new FB(){{
+                idEq(bookId);
+                eq("unitsSold",1000);
+            }});
+            
+            
         }});
         assertNotNull(bookFound);
     }

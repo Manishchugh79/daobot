@@ -12,7 +12,7 @@ import javax.persistence.criteria.JoinType;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.github.hguerrerojaime.daobot.core.ConditionFilter.Type;
+import com.github.hguerrerojaime.daobot.core.ConditionFilterType;
 import com.github.hguerrerojaime.daobot.exceptions.JsonQueryException;
 import com.github.hguerrerojaime.daobot.utils.JsonUtils;
 import com.github.hguerrerojaime.daobot.utils.Messages;
@@ -76,15 +76,15 @@ public class JsQLFilterQuery extends AbstracQueryBuilder {
                 
                 if(nodeKey.equals(AND)){
          
-                    buildTypeGroup("and",FilterGroup.Type.AND,nodeValue);
+                    buildTypeGroup("and",FilterGroupType.AND,nodeValue);
                     
                 }else if(nodeKey.equals(OR)){
          
-                    buildTypeGroup("or",FilterGroup.Type.OR,nodeValue);
+                    buildTypeGroup("or",FilterGroupType.OR,nodeValue);
                     
                 }else if(nodeKey.equals(NOT)){
          
-                    buildTypeGroup("not",FilterGroup.Type.NAND,nodeValue);
+                    buildTypeGroup("not",FilterGroupType.NAND,nodeValue);
                     
                 }
                 
@@ -94,7 +94,7 @@ public class JsQLFilterQuery extends AbstracQueryBuilder {
 
     }
     
-    private void buildTypeGroup(String code,FilterGroup.Type groupType,JsonNode body){
+    private void buildTypeGroup(String code,FilterGroupType groupType,JsonNode body){
         
         final String correctFormat = "[ {filters} ]";
         
@@ -139,12 +139,12 @@ public class JsQLFilterQuery extends AbstracQueryBuilder {
             String nodeKey = element.getKey();
             JsonNode nodeValue = element.getValue();
 
-            ConditionFilter.Type type = ConditionFilter.Type
+            ConditionFilterType type = ConditionFilterType
                     .byCode(nodeKey);
 
             if (type != null) {
                 
-                if(type.equals(ConditionFilter.Type.JOIN)){
+                if(type.equals(ConditionFilterType.JOIN)){
                     
                     buildJoinFilter(nodeValue, type);
                 }else{
@@ -160,7 +160,7 @@ public class JsQLFilterQuery extends AbstracQueryBuilder {
     
     
 
-    private void buildTypeFilter(JsonNode body,ConditionFilter.Type filterType) {
+    private void buildTypeFilter(JsonNode body,ConditionFilterType filterType) {
         
         final String correctFormat = "[ [args] ]";
 
@@ -201,7 +201,7 @@ public class JsQLFilterQuery extends AbstracQueryBuilder {
         
     }
     
-    private void buildJoinFilter(JsonNode body,ConditionFilter.Type filterType){
+    private void buildJoinFilter(JsonNode body,ConditionFilterType filterType){
         
         final String correctFormat = "[ [args] ]";
         
@@ -249,7 +249,7 @@ public class JsQLFilterQuery extends AbstracQueryBuilder {
             JsonNode joinBody = hasThreeArgs ? element.get(2) : element.get(1);
             JsQLFilterQuery joinFilterBuilder = new JsQLFilterQuery(joinBody);
             
-            addQueryFilter(new ConditionFilter(Type.JOIN, new Object[]{ fieldName,joinFilterBuilder,joinType }));
+            addQueryFilter(new ConditionFilter(ConditionFilterType.JOIN, new Object[]{ fieldName,joinFilterBuilder,joinType }));
             
         }
         

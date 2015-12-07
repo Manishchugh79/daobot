@@ -10,21 +10,21 @@ import java.util.List;
 public class FilterGroup implements QueryFilter {
 
 	private List<QueryFilter> filters;
-	private Type groupType;
+	private FilterGroupType groupType;
 	
 	public FilterGroup(){
-		this(Type.AND);
+		this(FilterGroupType.AND);
 	}
 	
-	protected FilterGroup(Type groupType){
+	protected FilterGroup(FilterGroupType groupType){
 		this.groupType = groupType;
 	}
 	
-	public Type getGroupType() {
+	public FilterGroupType getGroupType() {
 		return groupType;
 	}
 	
-	protected void setGroupType(Type groupType){
+	protected void setGroupType(FilterGroupType groupType){
 		this.groupType = groupType;
 	}
 
@@ -37,8 +37,4 @@ public class FilterGroup implements QueryFilter {
 	}
 	
 
-	public static enum Type{
-		AND,OR,NAND,NOR
-	}
-	
 }

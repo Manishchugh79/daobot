@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import javax.persistence.criteria.JoinType;
 
-import com.github.hguerrerojaime.daobot.core.ConditionFilter.Type;
 
 /**
  * @author Humberto Guerrero Jaime
@@ -22,7 +21,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @param filterGroupType
 	 */
 	public FB() {
-		this(FilterGroup.Type.AND);
+		this(FilterGroupType.AND);
 	}
 	
 	/**
@@ -30,7 +29,7 @@ public class FB extends AbstracQueryBuilder{
 	 * 
 	 * @param filterGroupType
 	 */
-	public FB(FilterGroup.Type filterGroupType){
+	public FB(FilterGroupType filterGroupType){
 		super(filterGroupType);
 		
 	}
@@ -62,7 +61,7 @@ public class FB extends AbstracQueryBuilder{
 	public FB and(FB filterBuilder){
 		
 		FilterGroup filterGroup = filterBuilder.build();
-		filterGroup.setGroupType(FilterGroup.Type.AND);
+		filterGroup.setGroupType(FilterGroupType.AND);
 		
 		addQueryFilter(filterGroup);
 		
@@ -77,9 +76,9 @@ public class FB extends AbstracQueryBuilder{
 	public FB or(FB filterBuilder){
 		
 		FilterGroup filterGroup = filterBuilder.build();
-		filterGroup.setGroupType(FilterGroup.Type.AND);
+		filterGroup.setGroupType(FilterGroupType.AND);
 		
-		filterGroup.setGroupType(FilterGroup.Type.OR);
+		filterGroup.setGroupType(FilterGroupType.OR);
 		addQueryFilter(filterGroup);
 		return this;
 	}
@@ -93,14 +92,14 @@ public class FB extends AbstracQueryBuilder{
 		
 		FilterGroup filterGroup = filterBuilder.build();
 		
-		if(filterGroup.getGroupType().equals(FilterGroup.Type.OR)){
-			filterGroup.setGroupType(FilterGroup.Type.NOR);
-		}else if(filterGroup.getGroupType().equals(FilterGroup.Type.AND)){
-			filterGroup.setGroupType(FilterGroup.Type.NAND);
-		}else if(filterGroup.getGroupType().equals(FilterGroup.Type.NAND)){
-			filterGroup.setGroupType(FilterGroup.Type.AND);
-		}else if(filterGroup.getGroupType().equals(FilterGroup.Type.NOR)){
-			filterGroup.setGroupType(FilterGroup.Type.OR);
+		if(filterGroup.getGroupType().equals(FilterGroupType.OR)){
+			filterGroup.setGroupType(FilterGroupType.NOR);
+		}else if(filterGroup.getGroupType().equals(FilterGroupType.AND)){
+			filterGroup.setGroupType(FilterGroupType.NAND);
+		}else if(filterGroup.getGroupType().equals(FilterGroupType.NAND)){
+			filterGroup.setGroupType(FilterGroupType.AND);
+		}else if(filterGroup.getGroupType().equals(FilterGroupType.NOR)){
+			filterGroup.setGroupType(FilterGroupType.OR);
 		}
 		
 		addQueryFilter(filterGroup);
@@ -117,7 +116,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB eq(String fieldName,Object value){
-		addQueryFilter(new ConditionFilter(Type.EQ, new Object[]{ fieldName,value }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.EQ, new Object[]{ fieldName,value }));
 		return this;
 	}
 	
@@ -129,7 +128,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB eqProperty(String fieldName1,String fieldName2){
-		addQueryFilter(new ConditionFilter(Type.EQ_PROPERTY, new Object[]{ fieldName1,fieldName2 }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.EQ_PROPERTY, new Object[]{ fieldName1,fieldName2 }));
 		return this;
 	}
 	
@@ -141,7 +140,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB ne(String fieldName,Comparable<?> value){
-		addQueryFilter(new ConditionFilter(Type.NE, new Object[]{ fieldName,value }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.NE, new Object[]{ fieldName,value }));
 		return this;
 	}
 	
@@ -153,7 +152,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB neProperty(String fieldName1,String fieldName2){
-		addQueryFilter(new ConditionFilter(Type.NE_PROPERTY, new Object[]{ fieldName1,fieldName2 }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.NE_PROPERTY, new Object[]{ fieldName1,fieldName2 }));
 		return this;
 	}
 	
@@ -165,7 +164,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB gt(String fieldName,Comparable value){
-		addQueryFilter(new ConditionFilter(Type.GT, new Object[]{ fieldName,value }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.GT, new Object[]{ fieldName,value }));
 		return this;
 	}
 	
@@ -177,7 +176,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB gtProperty(String fieldName1,String fieldName2){
-		addQueryFilter(new ConditionFilter(Type.GT_PROPERTY, new Object[]{ fieldName1,fieldName2 }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.GT_PROPERTY, new Object[]{ fieldName1,fieldName2 }));
 		return this;
 	}
 	
@@ -189,7 +188,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB ge(String fieldName,Comparable value){
-		addQueryFilter(new ConditionFilter(Type.GE, new Object[]{ fieldName,value }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.GE, new Object[]{ fieldName,value }));
 		return this;
 	}
 	
@@ -201,7 +200,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB geProperty(String fieldName1,String fieldName2){
-		addQueryFilter(new ConditionFilter(Type.GE_PROPERTY, new Object[]{ fieldName1,fieldName2 }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.GE_PROPERTY, new Object[]{ fieldName1,fieldName2 }));
 		return this;
 	}
 	
@@ -213,7 +212,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB lt(String fieldName,Comparable value){
-		addQueryFilter(new ConditionFilter(Type.LT, new Object[]{ fieldName,value }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.LT, new Object[]{ fieldName,value }));
 		return this;
 	}
 	
@@ -225,7 +224,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB ltProperty(String fieldName1,String fieldName2){
-		addQueryFilter(new ConditionFilter(Type.LT_PROPERTY, new Object[]{ fieldName1,fieldName2 }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.LT_PROPERTY, new Object[]{ fieldName1,fieldName2 }));
 		return this;
 	}
 	
@@ -237,7 +236,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB le(String fieldName,Comparable value){
-		addQueryFilter(new ConditionFilter(Type.LE, new Object[]{ fieldName,value }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.LE, new Object[]{ fieldName,value }));
 		return this;
 	}
 	
@@ -249,7 +248,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB leProperty(String fieldName1,String fieldName2){
-		addQueryFilter(new ConditionFilter(Type.LE_PROPERTY, new Object[]{ fieldName1,fieldName2 }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.LE_PROPERTY, new Object[]{ fieldName1,fieldName2 }));
 		return this;
 	}
 	
@@ -261,7 +260,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB in(String fieldName,Collection<?> values){
-		addQueryFilter(new ConditionFilter(Type.IN, new Object[]{ fieldName,values }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.IN, new Object[]{ fieldName,values }));
 		return this;
 	}
 	
@@ -272,7 +271,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB like(String fieldName,String value){
-		addQueryFilter(new ConditionFilter(Type.LIKE, new Object[]{ fieldName,value }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.LIKE, new Object[]{ fieldName,value }));
 		return this;
 	}
 	
@@ -283,7 +282,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB ilike(String fieldName,String value){
-		addQueryFilter(new ConditionFilter(Type.ILIKE, new Object[]{ fieldName,value }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.ILIKE, new Object[]{ fieldName,value }));
 		return this;
 	}
 	
@@ -295,7 +294,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB isNull(String fieldName){
-		addQueryFilter(new ConditionFilter(Type.IS_NULL, new Object[] {fieldName}));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.IS_NULL, new Object[] {fieldName}));
 		return this;
 	}
 	
@@ -305,7 +304,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB isNotNull(String fieldName){
-		addQueryFilter(new ConditionFilter(Type.IS_NOT_NULL, new Object[] {fieldName}));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.IS_NOT_NULL, new Object[] {fieldName}));
 		return this;
 	}
 	
@@ -318,7 +317,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB between(String fieldName,Comparable lowValue,Comparable highValue){
-		addQueryFilter(new ConditionFilter(Type.BETWEEN, new Object[]{ fieldName,lowValue,highValue }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.BETWEEN, new Object[]{ fieldName,lowValue,highValue }));
 		return this;
 	}
 	
@@ -329,7 +328,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public <K extends Serializable> FB idEq(K id){
-		addQueryFilter(new ConditionFilter(Type.ID_EQ, new Object[]{ id }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.ID_EQ, new Object[]{ id }));
 		return this;
 	}
 	
@@ -340,7 +339,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public <K extends Serializable> FB idNe(K id){
-		addQueryFilter(new ConditionFilter(Type.ID_NE, new Object[]{ id }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.ID_NE, new Object[]{ id }));
 		return this;
 	}
 	
@@ -363,7 +362,7 @@ public class FB extends AbstracQueryBuilder{
 	 * @return
 	 */
 	public FB join(String fieldName,JoinType joinType,FB filterBuilder){
-		addQueryFilter(new ConditionFilter(Type.JOIN, new Object[]{ fieldName,filterBuilder,joinType }));
+		addQueryFilter(new ConditionFilter(ConditionFilterType.JOIN, new Object[]{ fieldName,filterBuilder,joinType }));
 		return this;
 	}
 	

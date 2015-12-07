@@ -6,7 +6,7 @@ import java.util.List;
 public abstract class AbstracQueryBuilder {
 	
 	private List<QueryFilter> filters;
-	private FilterGroup.Type filterGroupType;
+	private FilterGroupType filterGroupType;
 
 	/**
 	 * Constructor with a default encapsulating AND filterGroupType
@@ -14,7 +14,7 @@ public abstract class AbstracQueryBuilder {
 	 * @param filterGroupType
 	 */
 	public AbstracQueryBuilder() {
-		this(FilterGroup.Type.AND);
+		this(FilterGroupType.AND);
 	}
 	
 	/**
@@ -22,7 +22,7 @@ public abstract class AbstracQueryBuilder {
 	 * 
 	 * @param filterGroupType
 	 */
-	public AbstracQueryBuilder(FilterGroup.Type filterGroupType){
+	public AbstracQueryBuilder(FilterGroupType filterGroupType){
 		this.filterGroupType = filterGroupType;
 		filters = new ArrayList<QueryFilter>();
 		
@@ -32,7 +32,7 @@ public abstract class AbstracQueryBuilder {
 		return filters;
 	}
 
-	protected FilterGroup.Type getFilterGroupType() {
+	protected FilterGroupType getFilterGroupType() {
 		return filterGroupType;
 	}
 	
