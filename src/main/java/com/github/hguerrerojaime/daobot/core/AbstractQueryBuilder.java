@@ -3,7 +3,7 @@ package com.github.hguerrerojaime.daobot.core;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstracQueryBuilder {
+public abstract class AbstractQueryBuilder {
 	
 	private List<QueryFilter> filters;
 	private FilterGroupType filterGroupType;
@@ -13,7 +13,7 @@ public abstract class AbstracQueryBuilder {
 	 * 
 	 * @param filterGroupType
 	 */
-	public AbstracQueryBuilder() {
+	public AbstractQueryBuilder() {
 		this(FilterGroupType.AND);
 	}
 	
@@ -22,7 +22,7 @@ public abstract class AbstracQueryBuilder {
 	 * 
 	 * @param filterGroupType
 	 */
-	public AbstracQueryBuilder(FilterGroupType filterGroupType){
+	public AbstractQueryBuilder(FilterGroupType filterGroupType){
 		this.filterGroupType = filterGroupType;
 		filters = new ArrayList<QueryFilter>();
 		

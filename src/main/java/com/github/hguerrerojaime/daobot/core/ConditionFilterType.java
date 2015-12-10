@@ -283,7 +283,7 @@ public enum ConditionFilterType {
                 CriteriaBuilder criteriaBuilder, Path<T> eoPath,
                 Class<T> entityClass) {
             String joinFieldName = String.valueOf(conditionFilter.getArgs()[0]);
-            AbstracQueryBuilder filterBuilder = (AbstracQueryBuilder) conditionFilter.getArgs()[1];
+            AbstractQueryBuilder filterBuilder = (AbstractQueryBuilder) conditionFilter.getArgs()[1];
             JoinType joinType = (JoinType) conditionFilter.getArgs()[2];
             
             Root<T> eoRoot = (Root<T>) eoPath;

@@ -11,7 +11,7 @@ import javax.persistence.criteria.JoinType;
  *
  */
 @SuppressWarnings("rawtypes")
-public class FB extends AbstracQueryBuilder{
+public class FB extends AbstractQueryBuilder{
 	
 	private FilterGroup filterBuild;
 	

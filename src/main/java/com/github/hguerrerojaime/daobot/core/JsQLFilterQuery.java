@@ -17,7 +17,7 @@ import com.github.hguerrerojaime.daobot.exceptions.JsonQueryException;
 import com.github.hguerrerojaime.daobot.utils.JsonUtils;
 import com.github.hguerrerojaime.daobot.utils.Messages;
 
-public class JsQLFilterQuery extends AbstracQueryBuilder {
+public class JsQLFilterQuery extends AbstractQueryBuilder {
 
     private JsonNode rootNode;
     private FilterGroup filterBuild;
