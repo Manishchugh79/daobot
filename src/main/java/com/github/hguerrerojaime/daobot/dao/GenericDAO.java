@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javax.persistence.EntityManager;
 
-import com.github.hguerrerojaime.daobot.core.AbstractQB;
+import com.github.hguerrerojaime.daobot.core.AbstractCB;
 import com.github.hguerrerojaime.daobot.core.CB;
 import com.github.hguerrerojaime.daobot.core.ResultSet;
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
@@ -77,7 +77,7 @@ import com.github.hguerrerojaime.daobot.eo.EntityObject;
      * @return The Instance
      */
     <T extends EntityObject<K>, K extends Serializable> T find(
-            Class<T> entityClass, AbstractQB criteriaBuilder);
+            Class<T> entityClass, AbstractCB criteriaBuilder);
     
     /**
      * Same as findAll(0,0); Fetches all the records
@@ -201,7 +201,7 @@ import com.github.hguerrerojaime.daobot.eo.EntityObject;
      *         count
      */
      <T extends EntityObject<K>, K extends Serializable> ResultSet<T> findAll(
-            Class<T> entityClass, AbstractQB criteriaBuilder);
+            Class<T> entityClass, AbstractCB criteriaBuilder);
 
     /**
      * Fetches all the records matching the given criteria paginating the
@@ -217,7 +217,7 @@ import com.github.hguerrerojaime.daobot.eo.EntityObject;
      *         count
      */
      <T extends EntityObject<K>, K extends Serializable> ResultSet<T> findAll(
-            Class<T> entityClass, AbstractQB criteriaBuilder, int max, int offset);
+            Class<T> entityClass, AbstractCB criteriaBuilder, int max, int offset);
     
     /**
      * Same as countBy(new JPAFilterBuilder()); Fetches the count of all the
@@ -273,7 +273,7 @@ import com.github.hguerrerojaime.daobot.eo.EntityObject;
      * @return
      */
      <T extends EntityObject<K>, K extends Serializable> Long count(
-            Class<T> entityClass, CB filterBuilder);
+            Class<T> entityClass, AbstractCB filterBuilder);
 
 
     /* Write methods */

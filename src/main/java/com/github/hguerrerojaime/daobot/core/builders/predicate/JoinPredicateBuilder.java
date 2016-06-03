@@ -1,6 +1,6 @@
 package com.github.hguerrerojaime.daobot.core.builders.predicate;
 
-import com.github.hguerrerojaime.daobot.core.AbstractQB;
+import com.github.hguerrerojaime.daobot.core.AbstractCB;
 import com.github.hguerrerojaime.daobot.core.ConditionFilter;
 import com.github.hguerrerojaime.daobot.core.QueryFilterGenerator;
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
@@ -20,7 +20,7 @@ public class JoinPredicateBuilder implements PredicateBuilder {
             CriteriaBuilder criteriaBuilder, Path<T> eoPath,
             Class<T> entityClass) {
         String joinFieldName = String.valueOf(conditionFilter.getArgs()[0]);
-        AbstractQB filterBuilder = (AbstractQB) conditionFilter.getArgs()[1];
+        AbstractCB filterBuilder = (AbstractCB) conditionFilter.getArgs()[1];
         JoinType joinType = (JoinType) conditionFilter.getArgs()[2];
 
         Root<T> eoRoot = (Root<T>) eoPath;

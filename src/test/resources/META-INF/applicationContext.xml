@@ -74,9 +74,9 @@
         </property>
     </bean>  
     
-	<bean id="bookDAO" class="com.github.hguerrerojaime.daobot.test.dao.BookDAOImpl"/>	
+	<bean id="bookDAO" class="com.github.hguerrerojaime.daobot.integration.dao.BookDAOImpl"/>
 	
-	<bean id="authorDAO" class="com.github.hguerrerojaime.daobot.test.dao.AuthorDAOImpl"/>	
+	<bean id="authorDAO" class="com.github.hguerrerojaime.daobot.integration.dao.AuthorDAOImpl"/>
 	
 	<bean id="genericDAO" class="com.github.hguerrerojaime.daobot.dao.GenericDAOImpl"/>	
 	<!--

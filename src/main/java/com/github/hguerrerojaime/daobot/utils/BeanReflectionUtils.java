@@ -137,10 +137,10 @@ public final class BeanReflectionUtils {
      * Path
      * 
      * Example: For instance.setA() use
-     * BeanReflectionUtils.set(instance,"a","test");
+     * BeanReflectionUtils.set(instance,"a","integration");
      * 
      * For instance.getA().setB() use
-     * BeanReflectionUtils.get(instance,"a.b","test");
+     * BeanReflectionUtils.get(instance,"a.b","integration");
      * 
      * @param instance
      *            The root object instance

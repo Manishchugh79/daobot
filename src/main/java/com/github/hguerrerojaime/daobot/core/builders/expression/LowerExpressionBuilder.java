@@ -17,7 +17,7 @@ public class LowerExpressionBuilder implements ExpressionBuilder<Expression<Stri
 
     @Override
     public Expression<String> build(CriteriaBuilder criteriaBuilder, Path path) {
-        return criteriaBuilder.upper(getExpressionBuilder().build(criteriaBuilder, path));
+        return criteriaBuilder.lower(getExpressionBuilder().build(criteriaBuilder, path));
     }
 
     public ExpressionBuilder getExpressionBuilder() {

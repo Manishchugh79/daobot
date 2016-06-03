@@ -3,7 +3,7 @@ package com.github.hguerrerojaime.daobot.core;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractQB {
+public abstract class AbstractCB {
 	
 	private List<QueryFilter> filters;
 	private List<QuerySort> sortList;
@@ -15,7 +15,7 @@ public abstract class AbstractQB {
 	 * 
 	 * @param filterGroupType
 	 */
-	public AbstractQB() {
+	public AbstractCB() {
 		this(FilterGroupType.AND);
 	}
 	
@@ -24,7 +24,7 @@ public abstract class AbstractQB {
 	 * 
 	 * @param filterGroupType
 	 */
-	public AbstractQB(FilterGroupType filterGroupType){
+	public AbstractCB(FilterGroupType filterGroupType){
 		this.filterGroupType = filterGroupType;
 		filters = new ArrayList<QueryFilter>();
 		sortList = new ArrayList<QuerySort>();

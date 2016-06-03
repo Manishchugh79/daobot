@@ -38,7 +38,6 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * @param entityClass
 	 */
 	public QueryGenerator(EntityManager entityManager, Class<T> entityClass) {
-		// TODO Auto-generated constructor stub
 		this.entityClass = entityClass;
 		this.entityManager = entityManager;
 	}
@@ -87,7 +86,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * @param offset
 	 * @return
 	 */
-	public ResultSet<T> build(CB jpaCriteriaBuilder,
+	public ResultSet<T> build(AbstractCB jpaCriteriaBuilder,
 			int max, int offset) {
 		return build(jpaCriteriaBuilder, max, offset, true);
 	}
@@ -96,7 +95,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * @param jpaCriteriaBuilder
 	 * @return
 	 */
-	public ResultSet<T> build(CB jpaCriteriaBuilder) {
+	public ResultSet<T> build(AbstractCB jpaCriteriaBuilder) {
 		return build(jpaCriteriaBuilder, true);
 	}
 
@@ -105,7 +104,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * @param autoCount
 	 * @return
 	 */
-	public ResultSet<T> build(CB jpaCriteriaBuilder,
+	public ResultSet<T> build(AbstractCB jpaCriteriaBuilder,
 			boolean autoCount) {
 		return build(jpaCriteriaBuilder, 0, 0, autoCount);
 	}
@@ -117,7 +116,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * @param autoCount
 	 * @return
 	 */
-	public ResultSet<T> build(CB jpaCriteriaBuilder,
+	public ResultSet<T> build(AbstractCB jpaCriteriaBuilder,
 			int max, int offset, boolean autoCount) {
 
 		CriteriaQuery<T> criteriaResultQuery = buildCriteriaResultQuery(jpaCriteriaBuilder);
@@ -178,24 +177,11 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
         return queryResult;
     }
 
-	
-
-	/**
-	 * @return
-	 */
-	public Long getCount() {
-		return getCount(new FB());
-	}
-
-	/**
-	 * @param jpaCriteriaBuilder
-	 * @return
-	 */
-	public Long getCount(FB jpaFilterBuilder) {
+	public Long getCount(AbstractCB jpaFilterBuilder) {
 		return (Long) buildCountQuery(jpaFilterBuilder).getSingleResult();
 	}
 	
-	public Query buildCountQuery(FB jpaFilterBuilder){
+	public Query buildCountQuery(AbstractCB jpaFilterBuilder){
 	    
 	    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
@@ -214,42 +200,13 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
         return entityManager.createQuery(criteriaCountQuery);
 
 	}
-	
-	/**
-     * @param jpaCriteriaBuilder
-     * @return
-     */
-    public Long getCount(JsonFB jpaFilterBuilder) {
 
-        return (Long) buildCountQuery(jpaFilterBuilder).getSingleResult();
-    }
-    
-    public Query buildCountQuery(JsonFB jpaFilterBuilder) {
-
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-
-        CriteriaQuery<Long> criteriaCountQuery = criteriaBuilder
-                .createQuery(Long.class);
-
-        Root<T> eoRoot = criteriaCountQuery.from(entityClass);
-
-        criteriaCountQuery.select(criteriaBuilder.count(eoRoot));
-
-        Predicate filters = buildAndEncapsulateFilters(
-                jpaFilterBuilder.build(), criteriaBuilder, eoRoot);
-
-        criteriaCountQuery.where(filters);
-
-        return entityManager.createQuery(criteriaCountQuery);
-    }
-
-	
 	/**
 	 * @param jpaCriteriaBuilder
 	 * @return
 	 */
 	private CriteriaQuery<T> buildCriteriaResultQuery(
-			CB jpaCriteriaBuilder) {
+			AbstractCB jpaCriteriaBuilder) {
 
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 

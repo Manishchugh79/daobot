@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.persistence.EntityManager;
 
+import com.github.hguerrerojaime.daobot.core.AbstractCB;
 import com.github.hguerrerojaime.daobot.core.CB;
 import com.github.hguerrerojaime.daobot.core.ResultSet;
 import com.github.hguerrerojaime.daobot.core.JsonCB;
@@ -17,7 +18,7 @@ import com.github.hguerrerojaime.daobot.eo.EntityObject;
  * @param <T> the EntityObject type
  * @param <K> the Primary Key for the Entity Object
  */
-public interface DAO<T extends EntityObject<K>,K extends Serializable> extends GenericDAO{
+ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends GenericDAO{
 	
 	
 
@@ -29,7 +30,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param id
 	 * @return The Instance
 	 */
-	public T get(K id);
+	 T get(K id);
 	
 	
 	/**
@@ -39,7 +40,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param id
 	 * @return True if instance is not null, False otherwise
 	 */
-	public boolean exists(K id);
+	 boolean exists(K id);
 	
 	
 
@@ -49,7 +50,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * 
 	 * @return The Instance
 	 */
-	public T find();
+	 T find();
 	
 	
 	/**
@@ -59,7 +60,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * 			    i.e. findOne("from Book where 1=1");
 	 * @return
 	 */
-	public T find(String hql);
+	 T find(String hql);
 	
 	/**
 	 * Fetches the fist result that matches the given query
@@ -68,7 +69,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param params the parameter map
 	 * @return
 	 */
-	public T find(String hql,Map<String,Object> params);
+	 T find(String hql,Map<String,Object> params);
 	
 	/**
 	 * Finds the first record matching the given criteria
@@ -76,7 +77,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param criteriaBuilder - The criteria to be met (Filters, Orders)
 	 * @return The Instance
 	 */
-	public T find(CB criteriaBuilder);
+	 T find(CB criteriaBuilder);
 	
 	
 	/**
@@ -85,7 +86,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * 
 	 * @return JPAResulset containing the fetched records and the total record count
 	 */
-	public ResultSet<T> findAll();
+	 ResultSet<T> findAll();
 	
 	
 	/**
@@ -96,7 +97,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param offset - The first record position to be fetched
 	 * @return JPAResulset containing the fetched records and the total record count
 	 */
-	public ResultSet<T> findAll(int max,int offset);
+	 ResultSet<T> findAll(int max,int offset);
 	
 
 	/**
@@ -107,7 +108,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * 			    i.e. findAll("from Book where 1=1");
 	 * @return the resultset
 	 */
-	public List<T> findAll(String hql);
+	 List<T> findAll(String hql);
 	
 
 	/**
@@ -120,7 +121,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param offset
 	 * @return the resultset
 	 */
-	public List<T> findAll(String hql,int max,int offset);
+	 List<T> findAll(String hql,int max,int offset);
 	
 	/**
 	 * Same as findAll(hql,params,0,0);
@@ -131,7 +132,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param params the parameter map
 	 * @return the resultset
 	 */
-	public List<T> findAll(String hql,Map<String,Object> params);
+	 List<T> findAll(String hql,Map<String,Object> params);
 	
 	/**
 	 * Same as findAll(hql,params,0,0);
@@ -142,7 +143,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param params the parameter list
 	 * @return the resultset
 	 */
-	public List<T> findAll(String hql,Object[] params);
+	 List<T> findAll(String hql,Object[] params);
 	
 
 	/**
@@ -155,7 +156,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param offset
 	 * @return the resultset
 	 */
-	public List<T> findAll(String hql,Map<String,Object> params,int max,int offset);
+	 List<T> findAll(String hql,Map<String,Object> params,int max,int offset);
 	
 	/**
 	 * Fetches all the results and the result count that matches the
@@ -167,7 +168,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param offset
 	 * @return the resultset
 	 */
-	public List<T> findAll(String hql,Object[] params,int max,int offset);
+	 List<T> findAll(String hql,Object[] params,int max,int offset);
 	
 	/**
 	 * Same as findAllBy(criteriaBuilder,0,0);
@@ -176,7 +177,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param criteriaBuilder - The criteria to be met (Filters, Orders)
 	 * @return JPAResulset containing the fetched records and the total record count
 	 */
-	public ResultSet<T> findAll(CB criteriaBuilder);
+	 ResultSet<T> findAll(AbstractCB criteriaBuilder);
 	
 	
 	/**
@@ -188,36 +189,15 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param offset - The first record position to be fetched
 	 * @return JPAResulset containing the fetched records and the total record count
 	 */
-	public ResultSet<T> findAll(CB criteriaBuilder,int max,int offset);
+	 ResultSet<T> findAll(AbstractCB criteriaBuilder,int max,int offset);
 	
-	/**
-     * Same as findAllBy(criteriaBuilder,0,0);
-     * Fetches ALL the records matching the given criteria
-     * 
-     * @param criteriaBuilder - The criteria to be met (Filters, Orders)
-     * @return JPAResulset containing the fetched records and the total record count
-     */
-    public ResultSet<T> findAll(JsonCB criteriaBuilder);
-    
-    
-    /**
-     * Fetches all the records matching the given criteria
-     * paginating the results
-     * 
-     * @param criteriaBuilder - The criteria to be met (Filters, Orders)
-     * @param max - The maximum number of records to be fetched
-     * @param offset - The first record position to be fetched
-     * @return JPAResulset containing the fetched records and the total record count
-     */
-    public ResultSet<T> findAll(JsonCB criteriaBuilder,int max,int offset);
-	
-	
+
 	/**
 	 * Same as countBy(new JPAFilterBuilder());
 	 * Fetches the count of all the records
 	 * @return the record count
 	 */
-	public Long count();
+	 Long count();
 	
 	
 	/**
@@ -226,7 +206,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * 			    i.e. findAll("from Book where 1=1");
 	 * @return the record count
 	 */
-	public Long count(String hql);
+	 Long count(String hql);
 	
 	/**
 	 * Fetches the count of all the records matching the given hql query
@@ -235,7 +215,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param params the parameter map
 	 * @return the record count
 	 */
-	public Long count(String hql,Map<String,Object> params);
+	 Long count(String hql,Map<String,Object> params);
 	
 	/**
 	 * Fetches the count of all the records matching the given hql query
@@ -244,7 +224,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param params the parameter list
 	 * @return the record count
 	 */
-	public Long count(String hql,Object[] params);
+	 Long count(String hql,Object[] params);
 	
 	
 	/**
@@ -253,22 +233,13 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param filterBuilder - The criteria to be met
 	 * @return
 	 */
-	public Long count(CB filterBuilder);
-	
-	/**
-     * Fetches the count of all the records matching the given criteria
-     * 
-     * @param filterBuilder - The criteria to be met
-     * @return
-     */
-    public Long count(JsonCB filterBuilder);
-	
-	
+	 Long count(AbstractCB filterBuilder);
+
 	/* Extras */
 	
 	/**
 	 * @return the EntityManager
 	 */
-	public EntityManager getEntityManager();
+	 EntityManager getEntityManager();
 	
 }

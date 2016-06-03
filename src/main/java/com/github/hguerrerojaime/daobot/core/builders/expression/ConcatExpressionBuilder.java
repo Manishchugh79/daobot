@@ -25,7 +25,7 @@ public class ConcatExpressionBuilder implements ExpressionBuilder<Expression<Str
 
         Expression nestedExpression = null;
 
-        for (ExpressionBuilder expressionBuilder : expressionBuilders) {
+        for (ExpressionBuilder expressionBuilder : getExpressionBuilders()) {
 
             Expression builtExpression = expressionBuilder.build(criteriaBuilder,path);
 
@@ -42,4 +42,7 @@ public class ConcatExpressionBuilder implements ExpressionBuilder<Expression<Str
     }
 
 
+    public ExpressionBuilder[] getExpressionBuilders() {
+        return expressionBuilders;
+    }
 }

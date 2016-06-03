@@ -3,9 +3,7 @@ package com.github.hguerrerojaime.daobot.core;
 import com.github.hguerrerojaime.daobot.core.builders.expression.ExpressionBuilder;
 
 import javax.persistence.criteria.JoinType;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import static com.github.hguerrerojaime.daobot.core.builders.expression.helpers.ExpressionBuilderHelper.path;
 import static com.github.hguerrerojaime.daobot.core.builders.expression.helpers.ExpressionBuilderHelper.upper;
@@ -14,7 +12,7 @@ import static com.github.hguerrerojaime.daobot.core.builders.expression.helpers.
  * @author Humberto Guerrero Jaime
  *
  */
-public class CB extends AbstractQB {
+public class CB extends AbstractCB {
 	
 
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import com.github.hguerrerojaime.daobot.core.AbstractCB;
 import com.github.hguerrerojaime.daobot.core.CB;
 import com.github.hguerrerojaime.daobot.core.ResultSet;
 import com.github.hguerrerojaime.daobot.core.JsonCB;
@@ -113,25 +114,14 @@ public class DAOImpl<T extends EntityObject<K>, K extends Serializable>
 	}
 
 	@Override
-	public ResultSet<T> findAll(CB criteriaBuilder) {
+	public ResultSet<T> findAll(AbstractCB criteriaBuilder) {
 		return super.findAll(entityClass,criteriaBuilder);
 	}
 
 	@Override
-	public ResultSet<T> findAll(CB criteriaBuilder, int max, int offset) {
+	public ResultSet<T> findAll(AbstractCB criteriaBuilder, int max, int offset) {
 		return super.findAll(entityClass,criteriaBuilder,max,offset);
 	}
-	
-	@Override
-    public ResultSet<T> findAll(JsonCB criteriaBuilder) {
-        return super.findAll(entityClass,criteriaBuilder);
-    }
-
-    @Override
-    public ResultSet<T> findAll(JsonCB criteriaBuilder, int max,
-            int offset) {
-        return super.findAll(entityClass,criteriaBuilder,0,0);
-    }
 
 	@Override
 	public Long count() {
@@ -154,15 +144,8 @@ public class DAOImpl<T extends EntityObject<K>, K extends Serializable>
 	}
 
 	@Override
-	public Long count(FB filterBuilder) {
+	public Long count(AbstractCB filterBuilder) {
 		return super.count(entityClass,filterBuilder);
 	}
-
-    
-	@Override
-    public Long count(JsonFB filterBuilder) {
-        return super.count(entityClass,filterBuilder);
-    }
-
 
 }

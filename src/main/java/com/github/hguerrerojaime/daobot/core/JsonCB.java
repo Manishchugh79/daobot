@@ -10,7 +10,7 @@ import com.github.hguerrerojaime.daobot.utils.Messages;
 
 import javax.persistence.criteria.JoinType;
 
-public class JsonCB extends AbstractQB {
+public class JsonCB extends AbstractCB {
 
     private JsonNode rootNode;
     private FilterGroup filterBuild;
