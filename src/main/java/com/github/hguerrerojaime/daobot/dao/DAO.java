@@ -7,10 +7,8 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 
 import com.github.hguerrerojaime.daobot.core.CB;
-import com.github.hguerrerojaime.daobot.core.DResultSet;
-import com.github.hguerrerojaime.daobot.core.FB;
-import com.github.hguerrerojaime.daobot.core.JsQLCriteriaQuery;
-import com.github.hguerrerojaime.daobot.core.JsQLFilterQuery;
+import com.github.hguerrerojaime.daobot.core.ResultSet;
+import com.github.hguerrerojaime.daobot.core.JsonCB;
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
 /**
@@ -87,7 +85,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * 
 	 * @return JPAResulset containing the fetched records and the total record count
 	 */
-	public DResultSet<T> findAll();
+	public ResultSet<T> findAll();
 	
 	
 	/**
@@ -98,7 +96,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param offset - The first record position to be fetched
 	 * @return JPAResulset containing the fetched records and the total record count
 	 */
-	public DResultSet<T> findAll(int max,int offset);
+	public ResultSet<T> findAll(int max,int offset);
 	
 
 	/**
@@ -178,7 +176,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param criteriaBuilder - The criteria to be met (Filters, Orders)
 	 * @return JPAResulset containing the fetched records and the total record count
 	 */
-	public DResultSet<T> findAll(CB criteriaBuilder);
+	public ResultSet<T> findAll(CB criteriaBuilder);
 	
 	
 	/**
@@ -190,7 +188,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param offset - The first record position to be fetched
 	 * @return JPAResulset containing the fetched records and the total record count
 	 */
-	public DResultSet<T> findAll(CB criteriaBuilder,int max,int offset);
+	public ResultSet<T> findAll(CB criteriaBuilder,int max,int offset);
 	
 	/**
      * Same as findAllBy(criteriaBuilder,0,0);
@@ -199,7 +197,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
      * @param criteriaBuilder - The criteria to be met (Filters, Orders)
      * @return JPAResulset containing the fetched records and the total record count
      */
-    public DResultSet<T> findAll(JsQLCriteriaQuery criteriaBuilder);
+    public ResultSet<T> findAll(JsonCB criteriaBuilder);
     
     
     /**
@@ -211,7 +209,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
      * @param offset - The first record position to be fetched
      * @return JPAResulset containing the fetched records and the total record count
      */
-    public DResultSet<T> findAll(JsQLCriteriaQuery criteriaBuilder,int max,int offset);
+    public ResultSet<T> findAll(JsonCB criteriaBuilder,int max,int offset);
 	
 	
 	/**
@@ -255,7 +253,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
 	 * @param filterBuilder - The criteria to be met
 	 * @return
 	 */
-	public Long count(FB filterBuilder);
+	public Long count(CB filterBuilder);
 	
 	/**
      * Fetches the count of all the records matching the given criteria
@@ -263,7 +261,7 @@ public interface DAO<T extends EntityObject<K>,K extends Serializable> extends G
      * @param filterBuilder - The criteria to be met
      * @return
      */
-    public Long count(JsQLFilterQuery filterBuilder);
+    public Long count(JsonCB filterBuilder);
 	
 	
 	/* Extras */

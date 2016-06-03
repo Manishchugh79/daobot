@@ -11,10 +11,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.github.hguerrerojaime.daobot.core.CB;
-import com.github.hguerrerojaime.daobot.core.DResultSet;
-import com.github.hguerrerojaime.daobot.core.FB;
-import com.github.hguerrerojaime.daobot.core.JsQLCriteriaQuery;
-import com.github.hguerrerojaime.daobot.core.JsQLFilterQuery;
+import com.github.hguerrerojaime.daobot.core.ResultSet;
+import com.github.hguerrerojaime.daobot.core.JsonCB;
 import com.github.hguerrerojaime.daobot.core.QueryGenerator;
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
@@ -73,13 +71,13 @@ public class GenericDAOImpl implements GenericDAO {
     }
 
     @Override
-    public <T extends EntityObject<K>, K extends Serializable> DResultSet<T> findAll(
+    public <T extends EntityObject<K>, K extends Serializable> ResultSet<T> findAll(
             Class<T> entityClass) {
         return findAll(entityClass, 0, 0);
     }
 
     @Override
-    public <T extends EntityObject<K>, K extends Serializable> DResultSet<T> findAll(
+    public <T extends EntityObject<K>, K extends Serializable> ResultSet<T> findAll(
             Class<T> entityClass, int max, int offset) {
         return findAll(entityClass, new CB(), max, offset);
     }
@@ -137,13 +135,13 @@ public class GenericDAOImpl implements GenericDAO {
     }
 
     @Override
-    public <T extends EntityObject<K>, K extends Serializable> DResultSet<T> findAll(
+    public <T extends EntityObject<K>, K extends Serializable> ResultSet<T> findAll(
             Class<T> entityClass, CB criteriaBuilder) {
         return findAll(entityClass, criteriaBuilder, 0, 0);
     }
 
     @Override
-    public <T extends EntityObject<K>, K extends Serializable> DResultSet<T> findAll(
+    public <T extends EntityObject<K>, K extends Serializable> ResultSet<T> findAll(
             Class<T> entityClass, CB criteriaBuilder, int max, int offset) {
         return getQueryGenerator(entityClass).build(criteriaBuilder, max, offset);
     }
@@ -244,27 +242,27 @@ public class GenericDAOImpl implements GenericDAO {
     
     @Override
     public <T extends EntityObject<K>, K extends Serializable> T find(
-            Class<T> entityClass, JsQLCriteriaQuery criteriaBuilder) {
+            Class<T> entityClass, JsonCB criteriaBuilder) {
       
         return getQueryGenerator(entityClass).build(criteriaBuilder, 1, 0, false).get();
     }
 
     @Override
-    public <T extends EntityObject<K>, K extends Serializable> DResultSet<T> findAll(
-            Class<T> entityClass, JsQLCriteriaQuery criteriaBuilder) {
+    public <T extends EntityObject<K>, K extends Serializable> ResultSet<T> findAll(
+            Class<T> entityClass, JsonCB criteriaBuilder) {
         return getQueryGenerator(entityClass).build(criteriaBuilder, 0, 0, true);
     }
 
     @Override
-    public <T extends EntityObject<K>, K extends Serializable> DResultSet<T> findAll(
-            Class<T> entityClass, JsQLCriteriaQuery criteriaBuilder, int max,
+    public <T extends EntityObject<K>, K extends Serializable> ResultSet<T> findAll(
+            Class<T> entityClass, JsonCB criteriaBuilder, int max,
             int offset) {
         return getQueryGenerator(entityClass).build(criteriaBuilder, max, offset, true);
     }
 
     @Override
     public <T extends EntityObject<K>, K extends Serializable> Long count(
-            Class<T> entityClass, JsQLFilterQuery filterBuilder) {
+            Class<T> entityClass, JsonFB filterBuilder) {
         return getQueryGenerator(entityClass).getCount(filterBuilder);
     }
 

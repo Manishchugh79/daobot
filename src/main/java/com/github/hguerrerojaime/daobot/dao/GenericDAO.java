@@ -6,16 +6,14 @@ import java.util.Map;
 
 import javax.persistence.EntityManager;
 
+import com.github.hguerrerojaime.daobot.core.AbstractQB;
 import com.github.hguerrerojaime.daobot.core.CB;
-import com.github.hguerrerojaime.daobot.core.DResultSet;
-import com.github.hguerrerojaime.daobot.core.FB;
-import com.github.hguerrerojaime.daobot.core.JsQLCriteriaQuery;
-import com.github.hguerrerojaime.daobot.core.JsQLFilterQuery;
+import com.github.hguerrerojaime.daobot.core.ResultSet;
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
-public interface GenericDAO {
+ public interface GenericDAO {
 
-    public static final int MAX_RECORDS = 500;
+    static final int MAX_RECORDS = 500;
 
     /* Read only methods */
 
@@ -25,7 +23,7 @@ public interface GenericDAO {
      * @param id
      * @return The Instance
      */
-    public <T extends EntityObject<K>, K extends Serializable> T get(
+    <T extends EntityObject<K>, K extends Serializable> T get(
             Class<T> entityClass, K id);
 
     /**
@@ -34,7 +32,7 @@ public interface GenericDAO {
      * @param id
      * @return True if instance is not null, False otherwise
      */
-    public <T extends EntityObject<K>, K extends Serializable> boolean exists(
+    <T extends EntityObject<K>, K extends Serializable> boolean exists(
             Class<T> entityClass, K id);
 
     /**
@@ -43,7 +41,7 @@ public interface GenericDAO {
      * 
      * @return The Instance
      */
-    public <T extends EntityObject<K>, K extends Serializable> T find(
+    <T extends EntityObject<K>, K extends Serializable> T find(
             Class<T> entityClass);
 
     /**
@@ -55,7 +53,7 @@ public interface GenericDAO {
      *            i.e. findOne("from Book where 1=1");
      * @return
      */
-    public <T extends EntityObject<K>, K extends Serializable> T find(
+    <T extends EntityObject<K>, K extends Serializable> T find(
             Class<T> entityClass, String hql);
 
     /**
@@ -68,7 +66,7 @@ public interface GenericDAO {
      *            the parameter map
      * @return
      */
-    public <T extends EntityObject<K>, K extends Serializable> T find(
+    <T extends EntityObject<K>, K extends Serializable> T find(
             Class<T> entityClass, String hql, Map<String, Object> params);
 
     /**
@@ -78,26 +76,16 @@ public interface GenericDAO {
      *            - The criteria to be met (Filters, Orders)
      * @return The Instance
      */
-    public <T extends EntityObject<K>, K extends Serializable> T find(
-            Class<T> entityClass, CB criteriaBuilder);
+    <T extends EntityObject<K>, K extends Serializable> T find(
+            Class<T> entityClass, AbstractQB criteriaBuilder);
     
-    /**
-     * Finds the first record matching the given criteria
-     * 
-     * @param criteriaBuilder
-     *            - The criteria to be met (Filters, Orders)
-     * @return The Instance
-     */
-    public <T extends EntityObject<K>, K extends Serializable> T find(
-            Class<T> entityClass, JsQLCriteriaQuery criteriaBuilder);
-
     /**
      * Same as findAll(0,0); Fetches all the records
      * 
      * @return JPAResulset containing the fetched records and the total record
      *         count
      */
-    public <T extends EntityObject<K>, K extends Serializable> DResultSet<T> findAll(
+    <T extends EntityObject<K>, K extends Serializable> ResultSet<T> findAll(
             Class<T> entityClass);
 
     /**
@@ -111,7 +99,7 @@ public interface GenericDAO {
      * @return JPAResulset containing the fetched records and the total record
      *         count
      */
-    public <T extends EntityObject<K>, K extends Serializable> DResultSet<T> findAll(
+     <T extends EntityObject<K>, K extends Serializable> ResultSet<T> findAll(
             Class<T> entityClass, int max, int offset);
 
     /**
@@ -123,7 +111,7 @@ public interface GenericDAO {
      *            i.e. findAll("from Book where 1=1");
      * @return the resultset
      */
-    public <T extends EntityObject<K>, K extends Serializable> List<T> findAll(
+     <T extends EntityObject<K>, K extends Serializable> List<T> findAll(
             Class<T> entityClass, String hql);
 
     /**
@@ -138,7 +126,7 @@ public interface GenericDAO {
      * @param offset
      * @return the resultset
      */
-    public <T extends EntityObject<K>, K extends Serializable> List<T> findAll(
+     <T extends EntityObject<K>, K extends Serializable> List<T> findAll(
             Class<T> entityClass, String hql, int max, int offset);
 
     /**
@@ -152,7 +140,7 @@ public interface GenericDAO {
      *            the parameter map
      * @return the resultset
      */
-    public <T extends EntityObject<K>, K extends Serializable> List<T> findAll(
+     <T extends EntityObject<K>, K extends Serializable> List<T> findAll(
             Class<T> entityClass, String hql, Map<String, Object> params);
 
     /**
@@ -166,7 +154,7 @@ public interface GenericDAO {
      *            the parameter list
      * @return the resultset
      */
-    public <T extends EntityObject<K>, K extends Serializable> List<T> findAll(
+     <T extends EntityObject<K>, K extends Serializable> List<T> findAll(
             Class<T> entityClass, String hql, Object[] params);
 
     /**
@@ -182,7 +170,7 @@ public interface GenericDAO {
      * @param offset
      * @return the resultset
      */
-    public <T extends EntityObject<K>, K extends Serializable> List<T> findAll(
+     <T extends EntityObject<K>, K extends Serializable> List<T> findAll(
             Class<T> entityClass, String hql, Map<String, Object> params,
             int max, int offset);
 
@@ -199,7 +187,7 @@ public interface GenericDAO {
      * @param offset
      * @return the resultset
      */
-    public <T extends EntityObject<K>, K extends Serializable> List<T> findAll(
+     <T extends EntityObject<K>, K extends Serializable> List<T> findAll(
             Class<T> entityClass, String hql, Object[] params, int max,
             int offset);
 
@@ -212,8 +200,8 @@ public interface GenericDAO {
      * @return JPAResulset containing the fetched records and the total record
      *         count
      */
-    public <T extends EntityObject<K>, K extends Serializable> DResultSet<T> findAll(
-            Class<T> entityClass, CB criteriaBuilder);
+     <T extends EntityObject<K>, K extends Serializable> ResultSet<T> findAll(
+            Class<T> entityClass, AbstractQB criteriaBuilder);
 
     /**
      * Fetches all the records matching the given criteria paginating the
@@ -228,46 +216,16 @@ public interface GenericDAO {
      * @return JPAResulset containing the fetched records and the total record
      *         count
      */
-    public <T extends EntityObject<K>, K extends Serializable> DResultSet<T> findAll(
-            Class<T> entityClass, CB criteriaBuilder, int max, int offset);
+     <T extends EntityObject<K>, K extends Serializable> ResultSet<T> findAll(
+            Class<T> entityClass, AbstractQB criteriaBuilder, int max, int offset);
     
-    
-    /**
-     * Same as findAllBy(criteriaBuilder,0,0); Fetches ALL the records matching
-     * the given criteria
-     * 
-     * @param criteriaBuilder
-     *            - The criteria to be met (Filters, Orders)
-     * @return JPAResulset containing the fetched records and the total record
-     *         count
-     */
-    public <T extends EntityObject<K>, K extends Serializable> DResultSet<T> findAll(
-            Class<T> entityClass, JsQLCriteriaQuery criteriaBuilder);
-
-    /**
-     * Fetches all the records matching the given criteria paginating the
-     * results
-     * 
-     * @param criteriaBuilder
-     *            - The criteria to be met (Filters, Orders)
-     * @param max
-     *            - The maximum number of records to be fetched
-     * @param offset
-     *            - The first record position to be fetched
-     * @return JPAResulset containing the fetched records and the total record
-     *         count
-     */
-    public <T extends EntityObject<K>, K extends Serializable> DResultSet<T> findAll(
-            Class<T> entityClass, JsQLCriteriaQuery criteriaBuilder, int max, int offset);
-    
-
     /**
      * Same as countBy(new JPAFilterBuilder()); Fetches the count of all the
      * records
      * 
      * @return the record count
      */
-    public <T extends EntityObject<K>, K extends Serializable> Long count(
+     <T extends EntityObject<K>, K extends Serializable> Long count(
             Class<T> entityClass);
 
     /**
@@ -278,7 +236,7 @@ public interface GenericDAO {
      *            i.e. findAll("from Book where 1=1");
      * @return the record count
      */
-    public <T extends EntityObject<K>, K extends Serializable> Long count(
+     <T extends EntityObject<K>, K extends Serializable> Long count(
             Class<T> entityClass, String hql);
 
     /**
@@ -291,7 +249,7 @@ public interface GenericDAO {
      *            the parameter map
      * @return the record count
      */
-    public <T extends EntityObject<K>, K extends Serializable> Long count(
+     <T extends EntityObject<K>, K extends Serializable> Long count(
             Class<T> entityClass, String hql, Map<String, Object> params);
 
     /**
@@ -304,7 +262,7 @@ public interface GenericDAO {
      *            the parameter list
      * @return the record count
      */
-    public <T extends EntityObject<K>, K extends Serializable> Long count(
+     <T extends EntityObject<K>, K extends Serializable> Long count(
             Class<T> entityClass, String hql, Object[] params);
 
     /**
@@ -314,18 +272,9 @@ public interface GenericDAO {
      *            - The criteria to be met
      * @return
      */
-    public <T extends EntityObject<K>, K extends Serializable> Long count(
-            Class<T> entityClass, FB filterBuilder);
-    
-    /**
-     * Fetches the count of all the records matching the given criteria
-     * 
-     * @param filterBuilder
-     *            - The criteria to be met
-     * @return
-     */
-    public <T extends EntityObject<K>, K extends Serializable> Long count(
-            Class<T> entityClass, JsQLFilterQuery filterBuilder);
+     <T extends EntityObject<K>, K extends Serializable> Long count(
+            Class<T> entityClass, CB filterBuilder);
+
 
     /* Write methods */
 
@@ -336,7 +285,7 @@ public interface GenericDAO {
      * @param instance
      * @return
      */
-    public <T extends EntityObject<K>, K extends Serializable> T save(
+     <T extends EntityObject<K>, K extends Serializable> T save(
             T instance);
 
     /**
@@ -350,13 +299,13 @@ public interface GenericDAO {
      *            - If true will call the flush method
      * @return
      */
-    public <T extends EntityObject<K>, K extends Serializable> T save(
+     <T extends EntityObject<K>, K extends Serializable> T save(
             T instance, boolean flush);
 
     /**
      * Flushes the session
      */
-    public void flush();
+     void flush();
 
     /**
      * Deletes de instance from the database
@@ -365,7 +314,7 @@ public interface GenericDAO {
      *            - The instance to be deleted
      * @return id of the instance
      */
-    public <T extends EntityObject<K>, K extends Serializable> K delete(
+     <T extends EntityObject<K>, K extends Serializable> K delete(
             T instance);
 
     /* Extras */
@@ -373,6 +322,6 @@ public interface GenericDAO {
     /**
      * @return the EntityManager
      */
-    public EntityManager getEntityManager();
+     EntityManager getEntityManager();
 
 }

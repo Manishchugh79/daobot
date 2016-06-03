@@ -13,13 +13,13 @@ public class QuerySort {
     //
 	
 	private String sort;
-	private DOrder order;
+	private Order order;
 	
 	//
     // constructor
     //
 	
-	public QuerySort(String sort, DOrder order) {
+	public QuerySort(String sort, Order order) {
 		super();
 		this.sort = sort;
 		this.order = order;
@@ -54,7 +54,7 @@ public class QuerySort {
 	/**
 	 * @return the order that the field is going to be sorted
 	 */
-	public DOrder getOrder() {
+	public Order getOrder() {
 		return order;
 	}
 
@@ -64,7 +64,7 @@ public class QuerySort {
 	/**
 	 * @param order - the order that the field is going to be sorted
 	 */
-	public void setOrder(DOrder order) {
+	public void setOrder(Order order) {
 		this.order = order;
 	}
 

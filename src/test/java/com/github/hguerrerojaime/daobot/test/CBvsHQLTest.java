@@ -13,9 +13,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.hguerrerojaime.daobot.core.CB;
-import com.github.hguerrerojaime.daobot.core.DOrder;
-import com.github.hguerrerojaime.daobot.core.DResultSet;
-import com.github.hguerrerojaime.daobot.core.FB;
+import com.github.hguerrerojaime.daobot.core.Order;
+import com.github.hguerrerojaime.daobot.core.ResultSet;
 import com.github.hguerrerojaime.daobot.test.dao.AuthorDAO;
 import com.github.hguerrerojaime.daobot.test.dao.BookDAO;
 import com.github.hguerrerojaime.daobot.test.eo.AuthorEO;
@@ -54,7 +53,7 @@ public class CBvsHQLTest {
 		final String dynamicField = "title";
 		final String query= "mon%";
 		
-		DResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB(){{
+		ResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB(){{
 			 like(dynamicField,query);
 		}});
 		
@@ -96,7 +95,7 @@ public class CBvsHQLTest {
 
 		final Object[] values = {"JPAUtils 12","some description",1000,1000};
 		
-		DResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB(){{
+		ResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB(){{
 			
 			for (int i = 0; i < dynamicFields.length; i++) {
 				eq(dynamicFields[i],values[i]);
@@ -139,7 +138,7 @@ public class CBvsHQLTest {
 		final String dynamicField = "title";
 		final String query= "mon%";
 		
-		DResultSet<AuthorEO> autorRS = authorDAO.findAll(new CB(){{
+		ResultSet<AuthorEO> autorRS = authorDAO.findAll(new CB(){{
 			
 			join("books",new FB(){{
 				like(dynamicField,query);
@@ -192,10 +191,10 @@ public class CBvsHQLTest {
 		final String[] dynamicFields = {"title","description","unitsSold","unitsBought"};
 	
 		
-		DResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB(){{
+		ResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB(){{
 			
 			for(String field : dynamicFields){
-				sort(field,DOrder.DESC);
+				sort(field, Order.DESC);
 			}
 			
 		}},10,0);
@@ -211,7 +210,7 @@ public class CBvsHQLTest {
 		
 
 		
-		DResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB(){{
+		ResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB(){{
 			
 			join("author",new FB(){{
 				ilike("name","acton%");
@@ -235,7 +234,7 @@ public class CBvsHQLTest {
 		
 
 		
-		DResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB(){{
+		ResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB(){{
 			
 			join("author",new FB(){{
 				ilike("name","acton%");
@@ -259,7 +258,7 @@ public class CBvsHQLTest {
 		
 
 		
-		DResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB(){{
+		ResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB(){{
 			
 			join("author",new FB(){{
 				ilike("name","actonaaaaaaaaa%");

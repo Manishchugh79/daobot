@@ -9,7 +9,7 @@ public class ConditionFilter implements QueryFilter {
 	private ConditionFilterType conditionType;
 	private Object[] args;
 	
-	public ConditionFilter(ConditionFilterType conditionType,Object args[]) {
+	public ConditionFilter(ConditionFilterType conditionType,Object... args) {
 		super();
 		this.conditionType = conditionType;
 		this.args = args;

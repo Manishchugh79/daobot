@@ -21,8 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.hguerrerojaime.daobot.core.CB;
-import com.github.hguerrerojaime.daobot.core.DResultSet;
-import com.github.hguerrerojaime.daobot.core.FB;
+import com.github.hguerrerojaime.daobot.core.ResultSet;
 import com.github.hguerrerojaime.daobot.test.dao.AuthorDAO;
 import com.github.hguerrerojaime.daobot.test.dao.BookDAO;
 import com.github.hguerrerojaime.daobot.test.eo.AuthorEO;
@@ -69,16 +68,13 @@ public class BookDAOTest {
         
         
         final Long bookId = book.getId();
-        
-        BookEO bookFound = bookDAO.find(new CB(){{
-            
-            or(new FB(){{
-                idEq(bookId);
-                eq("unitsSold",1000);
-            }});
-            
-            
-        }});
+
+        BookEO bookFound = bookDAO.find(new CB()
+			.or(new CB()
+				.eq("id",bookId)
+				.eq("unitsSold",1000)
+			)
+		);
         assertNotNull(bookFound);
     }
 	
@@ -134,7 +130,7 @@ public class BookDAOTest {
 		
 		TestUtils.generateAndSaveBooks("Some Book", 20, bookDAO);
 		
-		DResultSet<BookEO> bookResultSet = bookDAO.findAll();
+		ResultSet<BookEO> bookResultSet = bookDAO.findAll();
 		
 		int totalCount = bookResultSet.count().intValue();
 		int listSize   = bookResultSet.list().size();
@@ -152,7 +148,7 @@ public class BookDAOTest {
 		
 		final int PAGE_SIZE = 10;
 
-		DResultSet<BookEO> bookResultSet = bookDAO.findAll(PAGE_SIZE,0);
+		ResultSet<BookEO> bookResultSet = bookDAO.findAll(PAGE_SIZE,0);
 		
 		int totalCount = bookResultSet.count().intValue();
 		int listSize   = bookResultSet.list().size();
@@ -247,9 +243,9 @@ public class BookDAOTest {
 		TestUtils.generateAndSaveBook(BOOK_TITLE, bookDAO);
 		TestUtils.generateAndSaveBook(DONT_SEARCH_ME, bookDAO);
 		
-		Long bookCount = bookDAO.count(new FB(){{
-			eq("title",BOOK_TITLE);
-		}});
+		Long bookCount = bookDAO.count(new CB()
+			.eq("title",BOOK_TITLE)
+		);
 				
 		log.info("BOOK COUNT IS "+bookCount);
 		
@@ -393,7 +389,7 @@ public class BookDAOTest {
 		bookDAO.save(book2);
 		bookDAO.save(book3);
 		
-		DResultSet<BookEO> bookResultSet =
+		ResultSet<BookEO> bookResultSet =
 			bookDAO.findAll(new CB(){{
 			
 			gtProperty("unitsBought", "unitsSold");
@@ -430,7 +426,7 @@ public class BookDAOTest {
 		
 		final int UNITS_BOUGHT = 2222;
 		
-		DResultSet<BookEO> bookResultSet =
+		ResultSet<BookEO> bookResultSet =
 			bookDAO.findAll(new CB(){{
 				
 				or(new FB(){{
@@ -472,7 +468,7 @@ public class BookDAOTest {
 		
 		TestUtils.generateAndSaveBooksWithAutor("JPAUtils", 30, bookDAO, authorDAO);
 
-		DResultSet<AuthorEO> autorRS = authorDAO.findAll(new CB(){{
+		ResultSet<AuthorEO> autorRS = authorDAO.findAll(new CB(){{
 			
 			
 			join("books",new FB(){{
@@ -495,7 +491,7 @@ public class BookDAOTest {
         
         TestUtils.generateAndSaveBooksWithAutor("JPAUtils", 30, bookDAO, authorDAO);
 
-        DResultSet<AuthorEO> autorRS = authorDAO.findAll(new CB(){{
+        ResultSet<AuthorEO> autorRS = authorDAO.findAll(new CB(){{
             
 
             join("books",new FB(){{
@@ -519,7 +515,7 @@ public class BookDAOTest {
         
         TestUtils.generateAndSaveBooksWithAutor("JPAUtils", 30, bookDAO, authorDAO);
 
-        DResultSet<BookEO> bookRS = bookDAO.findAll(new CB(){{
+        ResultSet<BookEO> bookRS = bookDAO.findAll(new CB(){{
             
               lt("unitsSold",UNITS_SOLD);
             
@@ -538,7 +534,7 @@ public class BookDAOTest {
         
         TestUtils.generateAndSaveBooksWithAutor("JPAUtils", 30, bookDAO, authorDAO);
 
-        DResultSet<BookEO> bookRS = bookDAO.findAll(new CB(){{
+        ResultSet<BookEO> bookRS = bookDAO.findAll(new CB(){{
             
               le("unitsSold",UNITS_SOLD);
             
@@ -557,7 +553,7 @@ public class BookDAOTest {
         
         TestUtils.generateAndSaveBooksWithAutor("JPAUtils", 30, bookDAO, authorDAO);
 
-        DResultSet<BookEO> bookRS = bookDAO.findAll(new CB(){{
+        ResultSet<BookEO> bookRS = bookDAO.findAll(new CB(){{
             
               gt("unitsSold",UNITS_SOLD);
             
@@ -576,7 +572,7 @@ public class BookDAOTest {
         
         TestUtils.generateAndSaveBooksWithAutor("JPAUtils", 30, bookDAO, authorDAO);
 
-        DResultSet<BookEO> bookRS = bookDAO.findAll(new CB(){{
+        ResultSet<BookEO> bookRS = bookDAO.findAll(new CB(){{
             
               ge("unitsSold",UNITS_SOLD);
             

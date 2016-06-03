@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -48,7 +47,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * Same as build(true);
 	 * @return
 	 */
-	public DResultSet<T> build() {
+	public ResultSet<T> build() {
 		return build(true);
 	}
 
@@ -57,7 +56,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * @param autoCount
 	 * @return
 	 */
-	public DResultSet<T> build(boolean autoCount) {
+	public ResultSet<T> build(boolean autoCount) {
 		return build(new CB(), autoCount);
 	}
 
@@ -67,7 +66,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * @param offset
 	 * @return
 	 */
-	public DResultSet<T> build(int max, int offset) {
+	public ResultSet<T> build(int max, int offset) {
 		return build(new CB(), max, offset, true);
 	}
 
@@ -78,7 +77,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * @param autoCount
 	 * @return
 	 */
-	public DResultSet<T> build(int max, int offset, boolean autoCount) {
+	public ResultSet<T> build(int max, int offset, boolean autoCount) {
 		return build(new CB(), max, offset, autoCount);
 	}
 
@@ -88,7 +87,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * @param offset
 	 * @return
 	 */
-	public DResultSet<T> build(CB jpaCriteriaBuilder,
+	public ResultSet<T> build(CB jpaCriteriaBuilder,
 			int max, int offset) {
 		return build(jpaCriteriaBuilder, max, offset, true);
 	}
@@ -97,7 +96,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * @param jpaCriteriaBuilder
 	 * @return
 	 */
-	public DResultSet<T> build(CB jpaCriteriaBuilder) {
+	public ResultSet<T> build(CB jpaCriteriaBuilder) {
 		return build(jpaCriteriaBuilder, true);
 	}
 
@@ -106,7 +105,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * @param autoCount
 	 * @return
 	 */
-	public DResultSet<T> build(CB jpaCriteriaBuilder,
+	public ResultSet<T> build(CB jpaCriteriaBuilder,
 			boolean autoCount) {
 		return build(jpaCriteriaBuilder, 0, 0, autoCount);
 	}
@@ -118,7 +117,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * @param autoCount
 	 * @return
 	 */
-	public DResultSet<T> build(CB jpaCriteriaBuilder,
+	public ResultSet<T> build(CB jpaCriteriaBuilder,
 			int max, int offset, boolean autoCount) {
 
 		CriteriaQuery<T> criteriaResultQuery = buildCriteriaResultQuery(jpaCriteriaBuilder);
@@ -139,7 +138,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 			resultQuery.setFirstResult(offset);
 		}
 
-		DResultSet<T> queryResult = new DResultSet<T>(resultQuery,
+		ResultSet<T> queryResult = new ResultSet<T>(resultQuery,
 		        countQuery);
 
 		return queryResult;
@@ -152,7 +151,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
      * @param autoCount
      * @return
      */
-    public DResultSet<T> build(JsQLCriteriaQuery jpaCriteriaBuilder,
+    public ResultSet<T> build(JsonCB jpaCriteriaBuilder,
             int max, int offset, boolean autoCount) {
 
         CriteriaQuery<T> criteriaResultQuery = buildCriteriaResultQuery(jpaCriteriaBuilder);
@@ -173,7 +172,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
             resultQuery.setFirstResult(offset);
         }
 
-        DResultSet<T> queryResult = new DResultSet<T>(resultQuery,
+        ResultSet<T> queryResult = new ResultSet<T>(resultQuery,
                 countQuery);
 
         return queryResult;
@@ -220,12 +219,12 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
      * @param jpaCriteriaBuilder
      * @return
      */
-    public Long getCount(JsQLFilterQuery jpaFilterBuilder) {
+    public Long getCount(JsonFB jpaFilterBuilder) {
 
         return (Long) buildCountQuery(jpaFilterBuilder).getSingleResult();
     }
     
-    public Query buildCountQuery(JsQLFilterQuery jpaFilterBuilder) {
+    public Query buildCountQuery(JsonFB jpaFilterBuilder) {
 
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
@@ -270,7 +269,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 
 		if (!sortList.isEmpty()) {
 
-			List<Order> orderList = buildOrder(sortList, entityObjectRoot,
+			List<javax.persistence.criteria.Order> orderList = buildOrder(sortList, entityObjectRoot,
 					criteriaBuilder);
 
 			criteriaResultQuery.orderBy(orderList);
@@ -285,7 +284,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
      * @return
      */
     private CriteriaQuery<T> buildCriteriaResultQuery(
-            JsQLCriteriaQuery jpaCriteriaBuilder) {
+            JsonCB jpaCriteriaBuilder) {
         
         FilterGroup filterGroup = jpaCriteriaBuilder.build();
 
@@ -307,7 +306,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 
         if (!sortList.isEmpty()) {
 
-            List<Order> orderList = buildOrder(sortList, entityObjectRoot,
+            List<javax.persistence.criteria.Order> orderList = buildOrder(sortList, entityObjectRoot,
                     criteriaBuilder);
 
             criteriaResultQuery.orderBy(orderList);
@@ -335,18 +334,18 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	
 	}
 		
-	private List<Order> buildOrder(List<QuerySort> sortList, Root<T> eoRoot,
+	private List<javax.persistence.criteria.Order> buildOrder(List<QuerySort> sortList, Root<T> eoRoot,
 			CriteriaBuilder criteriaBuilder) {
 
-		List<Order> orderList = new ArrayList<Order>();
+		List<javax.persistence.criteria.Order> orderList = new ArrayList<javax.persistence.criteria.Order>();
 
 		for (QuerySort sort : sortList) {
 
-			if (sort.getOrder().equals(DOrder.ASC)) {
+			if (sort.getOrder().equals(Order.ASC)) {
 
 				orderList.add(criteriaBuilder.asc(eoRoot.get(sort.getSort())));
 
-			} else if (sort.getOrder().equals(DOrder.DESC)) {
+			} else if (sort.getOrder().equals(Order.DESC)) {
 
 				orderList.add(criteriaBuilder.desc(eoRoot.get(sort.getSort())));
 

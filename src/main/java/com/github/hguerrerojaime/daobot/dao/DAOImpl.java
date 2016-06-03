@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.hguerrerojaime.daobot.core.CB;
-import com.github.hguerrerojaime.daobot.core.DResultSet;
-import com.github.hguerrerojaime.daobot.core.FB;
-import com.github.hguerrerojaime.daobot.core.JsQLCriteriaQuery;
-import com.github.hguerrerojaime.daobot.core.JsQLFilterQuery;
+import com.github.hguerrerojaime.daobot.core.ResultSet;
+import com.github.hguerrerojaime.daobot.core.JsonCB;
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
 /**
@@ -74,12 +72,12 @@ public class DAOImpl<T extends EntityObject<K>, K extends Serializable>
 	}
 
 	@Override
-	public DResultSet<T> findAll() {
+	public ResultSet<T> findAll() {
 		return super.findAll(entityClass);
 	}
 
 	@Override
-	public DResultSet<T> findAll(int max, int offset) {
+	public ResultSet<T> findAll(int max, int offset) {
 		return super.findAll(entityClass,max,offset);
 	}
 
@@ -115,22 +113,22 @@ public class DAOImpl<T extends EntityObject<K>, K extends Serializable>
 	}
 
 	@Override
-	public DResultSet<T> findAll(CB criteriaBuilder) {
+	public ResultSet<T> findAll(CB criteriaBuilder) {
 		return super.findAll(entityClass,criteriaBuilder);
 	}
 
 	@Override
-	public DResultSet<T> findAll(CB criteriaBuilder, int max, int offset) {
+	public ResultSet<T> findAll(CB criteriaBuilder, int max, int offset) {
 		return super.findAll(entityClass,criteriaBuilder,max,offset);
 	}
 	
 	@Override
-    public DResultSet<T> findAll(JsQLCriteriaQuery criteriaBuilder) {
+    public ResultSet<T> findAll(JsonCB criteriaBuilder) {
         return super.findAll(entityClass,criteriaBuilder);
     }
 
     @Override
-    public DResultSet<T> findAll(JsQLCriteriaQuery criteriaBuilder, int max,
+    public ResultSet<T> findAll(JsonCB criteriaBuilder, int max,
             int offset) {
         return super.findAll(entityClass,criteriaBuilder,0,0);
     }
@@ -162,7 +160,7 @@ public class DAOImpl<T extends EntityObject<K>, K extends Serializable>
 
     
 	@Override
-    public Long count(JsQLFilterQuery filterBuilder) {
+    public Long count(JsonFB filterBuilder) {
         return super.count(entityClass,filterBuilder);
     }
 
