@@ -10,7 +10,19 @@ public final class PredicateBuilderUtils {
     private PredicateBuilderUtils() {}
 
     public static boolean allArgsAreExpressionBuilders(Object[] args) {
-        return isExpressionBuilder(args[0]) && isExpressionBuilder(args[1]) && isExpressionBuilder(args[2]);
+
+        boolean result = true;
+
+        for (Object arg : args) {
+
+            if (!isExpressionBuilder(arg)) {
+                result = false;
+                break;
+            }
+
+        }
+
+        return result;
     }
 
     public static boolean isExpressionBuilder(Object arg) {

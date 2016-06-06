@@ -27,7 +27,7 @@ class UpperExpressionBuilderSpec extends Specification {
 
             ExpressionBuilder literalEB = ExpressionBuilderHelper.literal("hi")
 
-        and: "A lower case expression builder"
+        and: "A upper case expression builder"
 
             ExpressionBuilder upperEB = ExpressionBuilderHelper.upper(literalEB)
 
