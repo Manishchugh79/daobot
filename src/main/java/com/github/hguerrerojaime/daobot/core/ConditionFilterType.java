@@ -1,20 +1,21 @@
 package com.github.hguerrerojaime.daobot.core;
 
-import java.io.Serializable;
-import java.lang.reflect.Field;
+import com.github.hguerrerojaime.daobot.core.builders.predicate.BetweenPredicateBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.predicate.EqPredicateBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.predicate.GePredicateBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.predicate.GtPredicateBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.predicate.InPredicateBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.predicate.IsEmptyPredicateBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.predicate.IsNotEmptyPredicateBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.predicate.IsNotNullPredicateBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.predicate.IsNullPredicateBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.predicate.JoinPredicateBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.predicate.LePredicateBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.predicate.LikePredicateBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.predicate.LtPredicateBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.predicate.NePredicateBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.predicate.PredicateBuilder;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
-
-import com.github.hguerrerojaime.daobot.core.builders.predicate.*;
-import com.github.hguerrerojaime.daobot.eo.EntityObject;
-
-@SuppressWarnings({"unchecked","rawtypes"})
 public enum ConditionFilterType {
     BETWEEN("between",3,new BetweenPredicateBuilder()),
     EQ("eq",2,new EqPredicateBuilder()),

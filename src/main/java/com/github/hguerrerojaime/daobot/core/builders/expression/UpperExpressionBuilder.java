@@ -7,6 +7,7 @@ import javax.persistence.criteria.Path;
 /**
  * Created by G834244 on 06/02/2016.
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public class UpperExpressionBuilder implements ExpressionBuilder<Expression<String>> {
 
     private ExpressionBuilder expressionBuilder;
@@ -15,12 +16,13 @@ public class UpperExpressionBuilder implements ExpressionBuilder<Expression<Stri
         this.expressionBuilder = expressionBuilder;
     }
 
-    @Override
-    public Expression<String> build(CriteriaBuilder criteriaBuilder, Path path) {
+	@Override
+    public Expression<String> build(CriteriaBuilder criteriaBuilder, Path<?> path) {
         return criteriaBuilder.upper(getExpressionBuilder().build(criteriaBuilder, path));
     }
 
-    public ExpressionBuilder getExpressionBuilder() {
+    
+	public ExpressionBuilder getExpressionBuilder() {
         return expressionBuilder;
     }
 }

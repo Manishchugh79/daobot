@@ -1,13 +1,12 @@
 package com.github.hguerrerojaime.daobot.core.builders.expression;
 
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 
 /**
  * Created by G834244 on 06/02/2016.
  */
-public class PathExpressionBuilder implements ExpressionBuilder<Path> {
+public class PathExpressionBuilder implements ExpressionBuilder<Path<?>> {
 
     private String fieldPath;
 
@@ -16,7 +15,7 @@ public class PathExpressionBuilder implements ExpressionBuilder<Path> {
     }
 
     @Override
-    public Path build(CriteriaBuilder criteriaBuilder, Path path) {
+    public Path<?> build(CriteriaBuilder criteriaBuilder, Path<?> path) {
         return path.get(getFieldPath());
     }
 

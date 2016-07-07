@@ -1,11 +1,7 @@
 package com.github.hguerrerojaime.daobot.core;
 
-import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.Query;
-
-import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
 /**
  * @author Humberto Guerrero Jaime
@@ -13,7 +9,9 @@ import com.github.hguerrerojaime.daobot.eo.EntityObject;
  * @param <T> Entity Object Type
  */
 @SuppressWarnings("unchecked")
-public class ResultSet<T extends EntityObject<? extends Serializable>> {
+public class ResultSet<T> {
+	
+	private static final int SINGLE_RESULT = 1;
 	
 	//
     // instance variables
@@ -22,6 +20,9 @@ public class ResultSet<T extends EntityObject<? extends Serializable>> {
 	private Query resultQuery;
 	private Query countQuery;
 	private Long totalCount;
+	
+	private List<T> list;
+	
 	
 	
 	//
@@ -44,7 +45,12 @@ public class ResultSet<T extends EntityObject<? extends Serializable>> {
 	 * @return the Result List of the query
 	 */
 	public List<T> list() {
-		return resultQuery.getResultList();
+		
+		if (list == null) {
+			list = resultQuery.getResultList();
+		}
+		
+		return list;
 	}
 	
 	/**
@@ -52,12 +58,20 @@ public class ResultSet<T extends EntityObject<? extends Serializable>> {
 	 */
 	public T get() {
 		
-		int resultListSize = resultQuery.getResultList().size();
+		int maxResultsTmp = resultQuery.getMaxResults();
+		
+		resultQuery.setMaxResults(SINGLE_RESULT);
+		
+		int resultListSize = list().size();
 		
 		if(resultListSize == 0){
 			return null;
 		}else{
-			return (T) resultQuery.getResultList().get(0);
+			T result = list().get(0);
+			
+			resultQuery.setMaxResults(maxResultsTmp);
+			
+			return result;
 		}
 	
 	}
@@ -70,14 +84,14 @@ public class ResultSet<T extends EntityObject<? extends Serializable>> {
 	 * @return The total count of the records found with the criteria
 	 */
 	public Long count() {
-	    
-	    if(totalCount == null){
+		
+		if (countQuery == null) {
+			totalCount = (long) list().size();
+		} else if(totalCount == null){
 	        totalCount = (Long) countQuery.getSingleResult();
 	    }
 	    
 		return totalCount;
-	}
-
-	
+	}	
 
 }

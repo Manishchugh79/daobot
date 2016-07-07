@@ -1,13 +1,19 @@
 package com.github.hguerrerojaime.daobot.core.builders.expression.helpers;
 
-import com.github.hguerrerojaime.daobot.core.builders.expression.*;
+import com.github.hguerrerojaime.daobot.core.builders.expression.ConcatExpressionBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.expression.ExpressionBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.expression.LiteralExpressionBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.expression.LowerExpressionBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.expression.PathExpressionBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.expression.UpperExpressionBuilder;
 
 /**
- * Created by G834244 on 06/02/2016.
+ * Created by Humberto Guerrero Jaime on 06/02/2016.
  */
+@SuppressWarnings("rawtypes")
 public final class ExpressionBuilderHelper {
 
-    private ExpressionBuilderHelper() {}
+	private ExpressionBuilderHelper() {}
 
     public static <T> LiteralExpressionBuilder<T> literal(T value) {
         return new LiteralExpressionBuilder<T>(value);
@@ -17,7 +23,8 @@ public final class ExpressionBuilderHelper {
         return new PathExpressionBuilder(fieldPath);
     }
 
-    public static UpperExpressionBuilder upper(ExpressionBuilder expressionBuilder) {
+    
+	public static UpperExpressionBuilder upper(ExpressionBuilder expressionBuilder) {
         return new UpperExpressionBuilder(expressionBuilder);
     }
 
@@ -28,5 +35,6 @@ public final class ExpressionBuilderHelper {
     public static ConcatExpressionBuilder concat(ExpressionBuilder... expressionBuilders) {
         return new ConcatExpressionBuilder(expressionBuilders);
     }
+
 
 }

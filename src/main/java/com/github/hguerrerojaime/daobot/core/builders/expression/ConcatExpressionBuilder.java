@@ -7,6 +7,7 @@ import javax.persistence.criteria.Path;
 /**
  * Created by G834244 on 06/02/2016.
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public class ConcatExpressionBuilder implements ExpressionBuilder<Expression<String>> {
 
 
@@ -17,17 +18,17 @@ public class ConcatExpressionBuilder implements ExpressionBuilder<Expression<Str
     }
 
     @Override
-    public Expression<String> build(CriteriaBuilder criteriaBuilder, Path path) {
+    public Expression<String> build(CriteriaBuilder criteriaBuilder, Path<?> path) {
         return concatExpressions(criteriaBuilder,path);
     }
 
-    private Expression<String> concatExpressions(CriteriaBuilder criteriaBuilder,Path path) {
+    private Expression<String> concatExpressions(CriteriaBuilder criteriaBuilder,Path<?> path) {
 
-        Expression nestedExpression = null;
+        Expression<String> nestedExpression = null;
 
         for (ExpressionBuilder expressionBuilder : getExpressionBuilders()) {
 
-            Expression builtExpression = expressionBuilder.build(criteriaBuilder,path);
+            Expression<String> builtExpression = expressionBuilder.build(criteriaBuilder,path);
 
             if (nestedExpression == null) {
                 nestedExpression = builtExpression;
@@ -42,7 +43,8 @@ public class ConcatExpressionBuilder implements ExpressionBuilder<Expression<Str
     }
 
 
-    public ExpressionBuilder[] getExpressionBuilders() {
+    
+	public ExpressionBuilder[] getExpressionBuilders() {
         return expressionBuilders;
     }
 }

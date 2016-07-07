@@ -16,7 +16,7 @@ public class LiteralExpressionBuilder<T> implements ExpressionBuilder<Expression
     }
 
     @Override
-    public Expression<T> build(CriteriaBuilder criteriaBuilder, Path path) {
+    public Expression<T> build(CriteriaBuilder criteriaBuilder, Path<?> path) {
         return criteriaBuilder.literal(getLiteral());
     }
 

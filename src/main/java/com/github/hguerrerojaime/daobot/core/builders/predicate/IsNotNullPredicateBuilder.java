@@ -13,6 +13,7 @@ import java.io.Serializable;
 /**
  * Created by G834244 on 06/02/2016.
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public class IsNotNullPredicateBuilder implements PredicateBuilder {
 
     @Override

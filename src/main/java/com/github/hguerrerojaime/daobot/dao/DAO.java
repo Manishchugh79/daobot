@@ -1,15 +1,11 @@
 package com.github.hguerrerojaime.daobot.dao;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.EntityManager;
 
 import com.github.hguerrerojaime.daobot.core.AbstractCB;
 import com.github.hguerrerojaime.daobot.core.CB;
+import com.github.hguerrerojaime.daobot.core.DynamicQueryBuilder;
 import com.github.hguerrerojaime.daobot.core.ResultSet;
-import com.github.hguerrerojaime.daobot.core.JsonCB;
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
 /**
@@ -52,25 +48,6 @@ import com.github.hguerrerojaime.daobot.eo.EntityObject;
 	 */
 	 T find();
 	
-	
-	/**
-	 * Same as findOne(hql,new HashMap<String,Object>());
-	 * Fetches the fist result that matches the given query
-	 * @param hql - The input hql query, needs to begin with statement "from"
-	 * 			    i.e. findOne("from Book where 1=1");
-	 * @return
-	 */
-	 T find(String hql);
-	
-	/**
-	 * Fetches the fist result that matches the given query
-	 * @param hql - The input hql query, needs to begin with statement "from"
-	 * 			    i.e. findOne("from Book where 1=1");
-	 * @param params the parameter map
-	 * @return
-	 */
-	 T find(String hql,Map<String,Object> params);
-	
 	/**
 	 * Finds the first record matching the given criteria
 	 * 
@@ -99,76 +76,6 @@ import com.github.hguerrerojaime.daobot.eo.EntityObject;
 	 */
 	 ResultSet<T> findAll(int max,int offset);
 	
-
-	/**
-	 * Same as findAll(hql,0,0);
-	 * Fetches all the results and the result count that matches the
-	 * given hql query
-	 * @param hql - The input hql query, needs to begin with statement "from"
-	 * 			    i.e. findAll("from Book where 1=1");
-	 * @return the resultset
-	 */
-	 List<T> findAll(String hql);
-	
-
-	/**
-	 * Same as findAll(hql,new HashMap<String,Object>(),max,offset);
-	 * Fetches all the results and the result count that matches the
-	 * given hql query paginating the results
-	 * @param hql - The input hql query, needs to begin with statement "from"
-	 * 			    i.e. findAll("from Book where 1=1");
-	 * @param max
-	 * @param offset
-	 * @return the resultset
-	 */
-	 List<T> findAll(String hql,int max,int offset);
-	
-	/**
-	 * Same as findAll(hql,params,0,0);
-	 * Fetches all the results and the result count that matches the
-	 * given hql query
-	 * @param hql - The input hql query, needs to begin with statement "from"
-	 * 			    i.e. findAll("from Book where 1=1");
-	 * @param params the parameter map
-	 * @return the resultset
-	 */
-	 List<T> findAll(String hql,Map<String,Object> params);
-	
-	/**
-	 * Same as findAll(hql,params,0,0);
-	 * Fetches all the results and the result count that matches the
-	 * given hql query
-	 * @param hql - The input hql query, needs to begin with statement "from"
-	 * 			    i.e. findAll("from Book where 1=1");
-	 * @param params the parameter list
-	 * @return the resultset
-	 */
-	 List<T> findAll(String hql,Object[] params);
-	
-
-	/**
-	 * Fetches all the results and the result count that matches the
-	 * given hql query paginating the results
-	 * @param hql - The input hql query, needs to begin with statement "from"
-	 * 			    i.e. findAll("from Book where 1=1");
-	 * @param params the parameter map
-	 * @param max
-	 * @param offset
-	 * @return the resultset
-	 */
-	 List<T> findAll(String hql,Map<String,Object> params,int max,int offset);
-	
-	/**
-	 * Fetches all the results and the result count that matches the
-	 * given hql query paginating the results
-	 * @param hql - The input hql query, needs to begin with statement "from"
-	 * 			    i.e. findAll("from Book where 1=1");
-	 * @param params the parameter list
-	 * @param max
-	 * @param offset
-	 * @return the resultset
-	 */
-	 List<T> findAll(String hql,Object[] params,int max,int offset);
 	
 	/**
 	 * Same as findAllBy(criteriaBuilder,0,0);
@@ -201,45 +108,16 @@ import com.github.hguerrerojaime.daobot.eo.EntityObject;
 	
 	
 	/**
-	 * Same as count(hql,new HashMap<String,Object>());
-	 * @param hql - The input hql query, needs to begin with statement "from"
-	 * 			    i.e. findAll("from Book where 1=1");
-	 * @return the record count
-	 */
-	 Long count(String hql);
-	
-	/**
-	 * Fetches the count of all the records matching the given hql query
-	 * @param hql - The input hql query, needs to begin with statement "from"
-	 * 			    i.e. findAll("from Book where 1=1");
-	 * @param params the parameter map
-	 * @return the record count
-	 */
-	 Long count(String hql,Map<String,Object> params);
-	
-	/**
-	 * Fetches the count of all the records matching the given hql query
-	 * @param hql - The input hql query, needs to begin with statement "from"
-	 * 			    i.e. findAll("from Book where 1=1");
-	 * @param params the parameter list
-	 * @return the record count
-	 */
-	 Long count(String hql,Object[] params);
-	
-	
-	/**
 	 * Fetches the count of all the records matching the given criteria
 	 * 
 	 * @param filterBuilder - The criteria to be met
 	 * @return
 	 */
 	 Long count(AbstractCB filterBuilder);
-
-	/* Extras */
-	
-	/**
-	 * @return the EntityManager
+	 
+	 /**
+	 * @return
 	 */
-	 EntityManager getEntityManager();
-	
+	DynamicQueryBuilder<T, K> fromEntity();
+
 }

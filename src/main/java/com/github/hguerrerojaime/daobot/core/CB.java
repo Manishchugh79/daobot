@@ -12,6 +12,7 @@ import static com.github.hguerrerojaime.daobot.core.builders.expression.helpers.
  * @author Humberto Guerrero Jaime
  *
  */
+@SuppressWarnings("rawtypes")
 public class CB extends AbstractCB {
 	
 
@@ -114,6 +115,7 @@ public class CB extends AbstractCB {
 		return this;
 	}
 
+	
 	public CB eq(ExpressionBuilder eb1,ExpressionBuilder eb2){
 		addQueryFilter(new ConditionFilter(ConditionFilterType.EQ, eb1,eb2));
 		return this;

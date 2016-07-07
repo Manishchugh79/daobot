@@ -12,6 +12,7 @@ import java.lang.reflect.Field;
 /**
  * Created by G834244 on 06/02/2016.
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public class JoinPredicateBuilder implements PredicateBuilder {
 
     @Override

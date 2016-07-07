@@ -10,7 +10,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import java.io.Serializable;
 
-
+@SuppressWarnings({"rawtypes","unchecked"})
 public class EqPredicateBuilder implements PredicateBuilder {
 
     @Override

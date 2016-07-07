@@ -8,9 +8,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Selection;
 
+import com.github.hguerrerojaime.daobot.core.builders.expression.ExpressionBuilder;
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
 /**
@@ -29,6 +32,8 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 
 	private Class<T> entityClass;
 	
+	private CriteriaBuilder criteriaBuilder;
+	
 	//
     // constructor
     //
@@ -40,6 +45,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	public QueryGenerator(EntityManager entityManager, Class<T> entityClass) {
 		this.entityClass = entityClass;
 		this.entityManager = entityManager;
+		this.criteriaBuilder = entityManager.getCriteriaBuilder();
 	}
 
 	/**
@@ -47,17 +53,10 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * @return
 	 */
 	public ResultSet<T> build() {
-		return build(true);
+		return build(new CB());
 	}
 
-	/**
-	 * Same as build(new JPACriteriaBuilder(), autoCount);
-	 * @param autoCount
-	 * @return
-	 */
-	public ResultSet<T> build(boolean autoCount) {
-		return build(new CB(), autoCount);
-	}
+
 
 	/**
 	 * Same as build(new JPACriteriaBuilder(), max, offset, true);
@@ -66,66 +65,33 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * @return
 	 */
 	public ResultSet<T> build(int max, int offset) {
-		return build(new CB(), max, offset, true);
+		return build(new CB(), max, offset);
 	}
 
+	
 	/**
-	 * 
-	 * @param max
-	 * @param offset
-	 * @param autoCount
+	 * @param jpaCriteriaBuilder
 	 * @return
 	 */
-	public ResultSet<T> build(int max, int offset, boolean autoCount) {
-		return build(new CB(), max, offset, autoCount);
+	public ResultSet<T> build(AbstractCB criteria) {
+		return build(criteria);
 	}
 
 	/**
 	 * @param jpaCriteriaBuilder
 	 * @param max
 	 * @param offset
+	 * @param autoCount
 	 * @return
 	 */
-	public ResultSet<T> build(AbstractCB jpaCriteriaBuilder,
+	public ResultSet<T> build(AbstractCB criteria,
 			int max, int offset) {
-		return build(jpaCriteriaBuilder, max, offset, true);
-	}
 
-	/**
-	 * @param jpaCriteriaBuilder
-	 * @return
-	 */
-	public ResultSet<T> build(AbstractCB jpaCriteriaBuilder) {
-		return build(jpaCriteriaBuilder, true);
-	}
+		CriteriaQuery<T> criteriaResultQuery = buildSimpleCriteriaQuery(criteria);
 
-	/**
-	 * @param jpaCriteriaBuilder
-	 * @param autoCount
-	 * @return
-	 */
-	public ResultSet<T> build(AbstractCB jpaCriteriaBuilder,
-			boolean autoCount) {
-		return build(jpaCriteriaBuilder, 0, 0, autoCount);
-	}
-
-	/**
-	 * @param jpaCriteriaBuilder
-	 * @param max
-	 * @param offset
-	 * @param autoCount
-	 * @return
-	 */
-	public ResultSet<T> build(AbstractCB jpaCriteriaBuilder,
-			int max, int offset, boolean autoCount) {
-
-		CriteriaQuery<T> criteriaResultQuery = buildCriteriaResultQuery(jpaCriteriaBuilder);
-
-		Query countQuery = null;
-
-		if (autoCount) {
-		    countQuery = buildCountQuery(jpaCriteriaBuilder);
-		}
+		boolean ignoreCount = max <= 0;
+		
+		Query countQuery = ignoreCount ? null : buildCountQuery(criteria);
 
 		Query resultQuery = entityManager.createQuery(criteriaResultQuery);
 
@@ -143,48 +109,66 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 		return queryResult;
 	}
 	
+	
 	/**
-     * @param jpaCriteriaBuilder
-     * @param max
-     * @param offset
-     * @param autoCount
-     * @return
-     */
-    public ResultSet<T> build(JsonCB jpaCriteriaBuilder,
-            int max, int offset, boolean autoCount) {
+	 * @param criteria
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public <R> ResultSet<R> build(List<ExpressionBuilder> expressionBuilders,
+			AbstractCB criteria,Class<R> resultClass,int max, int offset) {
 
-        CriteriaQuery<T> criteriaResultQuery = buildCriteriaResultQuery(jpaCriteriaBuilder);
+		CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery(resultClass);
+		
+		boolean ignoreCount = max <= 0;
+		Query countQuery = ignoreCount ? null : buildCountQuery(criteria);
 
-        Query countQuery = null;
+		Root<T> root = criteriaQuery.from(entityClass);
+		
+		criteriaQuery.multiselect(buildSelection(expressionBuilders, root));
 
-        if (autoCount) {
-            countQuery = buildCountQuery(jpaCriteriaBuilder);
-        }
+		Predicate filters = buildAndEncapsulateFilters(
+				criteria.build(), criteriaBuilder, root);
 
-        Query resultQuery = entityManager.createQuery(criteriaResultQuery);
+		criteriaQuery.where(filters);
 
-        if (max > 0) {
-            resultQuery.setMaxResults(max);
-        }
+		List<QuerySort> sortList = criteria.getSortList();
 
-        if (offset >= 0) {
-            resultQuery.setFirstResult(offset);
-        }
+		if (!sortList.isEmpty()) {
 
-        ResultSet<T> queryResult = new ResultSet<T>(resultQuery,
-                countQuery);
+			List<javax.persistence.criteria.Order> orderList = buildOrder(sortList, root);
 
-        return queryResult;
-    }
+			criteriaQuery.orderBy(orderList);
 
-	public Long getCount(AbstractCB jpaFilterBuilder) {
-		return (Long) buildCountQuery(jpaFilterBuilder).getSingleResult();
+		}
+		
+		Query resultQuery = entityManager.createQuery(criteriaQuery);
+
+		return new ResultSet<R>(resultQuery, countQuery);
+	}
+	
+	@SuppressWarnings({"rawtypes","unchecked"})
+	private List<Selection<?>> buildSelection(List<ExpressionBuilder> expressionBuilders,Root<T> root) {
+		
+		List<Selection<?>> selection = new ArrayList<Selection<?>>();
+		
+		for (ExpressionBuilder eb : expressionBuilders) {
+			 Expression expression = eb.build(criteriaBuilder, root);
+			 selection.add(expression);
+		}
+		
+		return selection;
+		
+		
+	}
+	
+	
+	public Long getCount(AbstractCB criteria) {
+		return (Long) buildCountQuery(criteria).getSingleResult();
 	}
 	
 	public Query buildCountQuery(AbstractCB jpaFilterBuilder){
 	    
-	    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-
         CriteriaQuery<Long> criteriaCountQuery = criteriaBuilder
                 .createQuery(Long.class);
 
@@ -205,10 +189,8 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * @param jpaCriteriaBuilder
 	 * @return
 	 */
-	private CriteriaQuery<T> buildCriteriaResultQuery(
+	private CriteriaQuery<T> buildSimpleCriteriaQuery(
 			AbstractCB jpaCriteriaBuilder) {
-
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
 		CriteriaQuery<T> criteriaResultQuery = criteriaBuilder
 				.createQuery(entityClass);
@@ -226,8 +208,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 
 		if (!sortList.isEmpty()) {
 
-			List<javax.persistence.criteria.Order> orderList = buildOrder(sortList, entityObjectRoot,
-					criteriaBuilder);
+			List<javax.persistence.criteria.Order> orderList = buildOrder(sortList, entityObjectRoot);
 
 			criteriaResultQuery.orderBy(orderList);
 
@@ -236,42 +217,8 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 		return criteriaResultQuery;
 	}
 	
-	/**
-     * @param jpaCriteriaBuilder
-     * @return
-     */
-    private CriteriaQuery<T> buildCriteriaResultQuery(
-            JsonCB jpaCriteriaBuilder) {
-        
-        FilterGroup filterGroup = jpaCriteriaBuilder.build();
-
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-
-        CriteriaQuery<T> criteriaResultQuery = criteriaBuilder
-                .createQuery(entityClass);
-
-        Root<T> entityObjectRoot = criteriaResultQuery.from(entityClass);
-
-        criteriaResultQuery.select(entityObjectRoot);
-
-        Predicate filters = buildAndEncapsulateFilters(
-                filterGroup, criteriaBuilder, entityObjectRoot);
-
-        criteriaResultQuery.where(filters);
-
-        List<QuerySort> sortList = jpaCriteriaBuilder.getSortList();
-
-        if (!sortList.isEmpty()) {
-
-            List<javax.persistence.criteria.Order> orderList = buildOrder(sortList, entityObjectRoot,
-                    criteriaBuilder);
-
-            criteriaResultQuery.orderBy(orderList);
-
-        }
-
-        return criteriaResultQuery;
-    }
+	
+	
 	
 	/**
 	 * @param fg
@@ -291,8 +238,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	
 	}
 		
-	private List<javax.persistence.criteria.Order> buildOrder(List<QuerySort> sortList, Root<T> eoRoot,
-			CriteriaBuilder criteriaBuilder) {
+	private List<javax.persistence.criteria.Order> buildOrder(List<QuerySort> sortList, Root<T> eoRoot) {
 
 		List<javax.persistence.criteria.Order> orderList = new ArrayList<javax.persistence.criteria.Order>();
 

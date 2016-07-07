@@ -6,8 +6,8 @@ import javax.persistence.criteria.Path;
 /**
  * Created by G834244 on 06/02/2016.
  */
-public interface ExpressionBuilder<E extends Expression> {
+public interface ExpressionBuilder<E extends Expression<?>> {
 
-    E build(CriteriaBuilder criteriaBuilder, Path path);
+    E build(CriteriaBuilder criteriaBuilder, Path<?> path);
 
 }

@@ -1,13 +1,11 @@
 package com.github.hguerrerojaime.daobot.dao;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
 
 import com.github.hguerrerojaime.daobot.core.AbstractCB;
 import com.github.hguerrerojaime.daobot.core.CB;
+import com.github.hguerrerojaime.daobot.core.DynamicQueryBuilder;
 import com.github.hguerrerojaime.daobot.core.ResultSet;
-import com.github.hguerrerojaime.daobot.core.JsonCB;
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
 /**
@@ -20,7 +18,7 @@ import com.github.hguerrerojaime.daobot.eo.EntityObject;
  * @param <K>
  *            the Primary Key for the Entity Object
  */
-public class DAOImpl<T extends EntityObject<K>, K extends Serializable>
+public abstract class DAOImpl<T extends EntityObject<K>, K extends Serializable>
 		extends GenericDAOImpl implements DAO<T, K> {
 
 	//
@@ -58,16 +56,6 @@ public class DAOImpl<T extends EntityObject<K>, K extends Serializable>
 	}
 
 	@Override
-	public T find(String hql) {
-		return super.find(entityClass,hql);
-	}
-
-	@Override
-	public T find(String hql, Map<String, Object> params) {
-		return super.find(entityClass,hql,params);
-	}
-
-	@Override
 	public T find(CB criteriaBuilder) {
 		return super.find(entityClass,criteriaBuilder);
 	}
@@ -82,36 +70,6 @@ public class DAOImpl<T extends EntityObject<K>, K extends Serializable>
 		return super.findAll(entityClass,max,offset);
 	}
 
-	@Override
-	public List<T> findAll(String hql) {
-		return super.findAll(entityClass,hql);
-	}
-
-	@Override
-	public List<T> findAll(String hql, int max, int offset) {
-		return super.findAll(entityClass,hql,max,offset);
-	}
-
-	@Override
-	public List<T> findAll(String hql, Map<String, Object> params) {
-		return super.findAll(entityClass,hql,params);
-	}
-
-	@Override
-	public List<T> findAll(String hql, Object[] params) {
-		return super.findAll(entityClass,hql,params);
-	}
-
-	@Override
-	public List<T> findAll(String hql, Map<String, Object> params, int max,
-			int offset) {
-		return super.findAll(entityClass,hql,params,max,offset);
-	}
-
-	@Override
-	public List<T> findAll(String hql, Object[] params, int max, int offset) {
-		return super.findAll(entityClass,hql,params,max,offset);
-	}
 
 	@Override
 	public ResultSet<T> findAll(AbstractCB criteriaBuilder) {
@@ -128,24 +86,15 @@ public class DAOImpl<T extends EntityObject<K>, K extends Serializable>
 		return super.count(entityClass);
 	}
 
-	@Override
-	public Long count(String hql) {
-		return super.count(entityClass,hql);
-	}
-
-	@Override
-	public Long count(String hql, Map<String, Object> params) {
-		return super.count(entityClass,hql,params);
-	}
-
-	@Override
-	public Long count(String hql, Object[] params) {
-		return super.count(entityClass,hql,params);
-	}
 
 	@Override
 	public Long count(AbstractCB filterBuilder) {
 		return super.count(entityClass,filterBuilder);
+	}
+
+	@Override
+	public DynamicQueryBuilder<T, K> fromEntity() {
+		return super.from(entityClass);
 	}
 
 }

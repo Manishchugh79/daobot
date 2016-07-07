@@ -1,19 +1,20 @@
 package com.github.hguerrerojaime.daobot.core.builders.predicate;
 
+import java.io.Serializable;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+
 import com.github.hguerrerojaime.daobot.core.ConditionFilter;
 import com.github.hguerrerojaime.daobot.core.builders.expression.ExpressionBuilder;
 import com.github.hguerrerojaime.daobot.core.builders.predicate.utils.PredicateBuilderUtils;
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import java.io.Serializable;
-
 /**
  * Created by G834244 on 06/02/2016.
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public class LikePredicateBuilder implements PredicateBuilder {
 
     @Override
