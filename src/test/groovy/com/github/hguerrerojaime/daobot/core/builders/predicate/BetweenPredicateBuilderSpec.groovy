@@ -5,12 +5,12 @@ import com.github.hguerrerojaime.daobot.core.ConditionFilterType
 import com.github.hguerrerojaime.daobot.integration.eo.BookEO
 import spock.lang.Specification
 
+import static com.github.hguerrerojaime.daobot.helpers.ExpressionBuilderHelper.path;
+
 import javax.persistence.criteria.CriteriaBuilder
-import javax.persistence.criteria.Path
+import javax.persistence.criteria.Path;
 
-import static com.github.hguerrerojaime.daobot.core.builders.expression.helpers.ExpressionBuilderHelper.path
 
-@SuppressWarnings("GroovyAssignabilityCheck")
 class BetweenPredicateBuilderSpec extends Specification {
 
     Path mockPath

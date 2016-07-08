@@ -1,11 +1,12 @@
 package com.github.hguerrerojaime.daobot.core.builders.expression
 
-import com.github.hguerrerojaime.daobot.core.builders.expression.helpers.ExpressionBuilderHelper
 import spock.lang.Specification
 
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.Expression
 import javax.persistence.criteria.Path
+
+import com.github.hguerrerojaime.daobot.helpers.ExpressionBuilderHelper;
 
 /**
  * Created by G834244 on 06/03/2016.

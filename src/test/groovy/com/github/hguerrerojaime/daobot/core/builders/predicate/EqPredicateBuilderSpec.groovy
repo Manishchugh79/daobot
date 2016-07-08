@@ -5,10 +5,10 @@ import com.github.hguerrerojaime.daobot.core.ConditionFilterType
 import com.github.hguerrerojaime.daobot.integration.eo.BookEO
 import spock.lang.Specification
 
-import javax.persistence.criteria.CriteriaBuilder
-import javax.persistence.criteria.Path
+import static com.github.hguerrerojaime.daobot.helpers.ExpressionBuilderHelper.path;
 
-import static com.github.hguerrerojaime.daobot.core.builders.expression.helpers.ExpressionBuilderHelper.path
+import javax.persistence.criteria.CriteriaBuilder
+import javax.persistence.criteria.Path;
 
 class EqPredicateBuilderSpec extends Specification {
 
@@ -59,7 +59,7 @@ class EqPredicateBuilderSpec extends Specification {
 
             ConditionFilter conditionFilter =
                     new ConditionFilter(
-                            ConditionFilterType.BETWEEN,
+                            ConditionFilterType.EQ,
                             path("releaseDate"),
                             new Date()
                     )

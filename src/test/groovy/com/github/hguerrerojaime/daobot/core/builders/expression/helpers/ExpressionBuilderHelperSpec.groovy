@@ -1,6 +1,8 @@
 package com.github.hguerrerojaime.daobot.core.builders.expression.helpers
 
 import com.github.hguerrerojaime.daobot.core.builders.expression.ExpressionBuilder
+import com.github.hguerrerojaime.daobot.helpers.ExpressionBuilderHelper;
+
 import spock.lang.Specification
 
 /**

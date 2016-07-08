@@ -3,10 +3,11 @@ package com.github.hguerrerojaime.daobot.core;
 import com.github.hguerrerojaime.daobot.core.builders.expression.ExpressionBuilder;
 
 import javax.persistence.criteria.JoinType;
-import java.util.Collection;
 
-import static com.github.hguerrerojaime.daobot.core.builders.expression.helpers.ExpressionBuilderHelper.path;
-import static com.github.hguerrerojaime.daobot.core.builders.expression.helpers.ExpressionBuilderHelper.upper;
+import static com.github.hguerrerojaime.daobot.helpers.ExpressionBuilderHelper.path;
+import static com.github.hguerrerojaime.daobot.helpers.ExpressionBuilderHelper.upper;
+
+import java.util.Collection;
 
 /**
  * @author Humberto Guerrero Jaime
