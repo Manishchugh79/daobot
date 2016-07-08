@@ -49,35 +49,6 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	}
 
 	/**
-	 * Same as build(true);
-	 * @return
-	 */
-	public ResultSet<T> build() {
-		return build(new CB());
-	}
-
-
-
-	/**
-	 * Same as build(new JPACriteriaBuilder(), max, offset, true);
-	 * @param max
-	 * @param offset
-	 * @return
-	 */
-	public ResultSet<T> build(int max, int offset) {
-		return build(new CB(), max, offset);
-	}
-
-	
-	/**
-	 * @param jpaCriteriaBuilder
-	 * @return
-	 */
-	public ResultSet<T> build(AbstractCB criteria) {
-		return build(criteria);
-	}
-
-	/**
 	 * @param jpaCriteriaBuilder
 	 * @param max
 	 * @param offset

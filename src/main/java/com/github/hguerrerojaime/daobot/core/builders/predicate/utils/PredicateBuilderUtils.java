@@ -7,8 +7,6 @@ import com.github.hguerrerojaime.daobot.core.builders.expression.ExpressionBuild
  */
 public final class PredicateBuilderUtils {
 
-    private PredicateBuilderUtils() {}
-
     public static boolean allArgsAreExpressionBuilders(Object[] args) {
 
         boolean result = true;

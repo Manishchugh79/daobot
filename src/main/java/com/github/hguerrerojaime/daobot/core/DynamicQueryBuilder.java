@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.github.hguerrerojaime.daobot.core.builders.expression.ExpressionBuilder;
+import com.github.hguerrerojaime.daobot.core.builders.expression.RootExpressionBuilder;
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
 @SuppressWarnings("rawtypes")
@@ -38,7 +39,11 @@ public class DynamicQueryBuilder<T extends EntityObject<K>,K extends Serializabl
 	}
 	
 	public <R> R find(Class<R> resultClass) {
-		return (R) queryGenerator.build(selection, criteria,resultClass,SINGLE_RESULT,0).get();
+		return (R) queryGenerator.build(getSelection(), criteria,resultClass,SINGLE_RESULT,0).get();
+	}
+	
+	public ResultSet<?> findAll() {
+		return findAll(Object.class,0,0);
 	}
 	
 	public <R> ResultSet<R> findAll(Class<R> resultClass) {
@@ -46,11 +51,16 @@ public class DynamicQueryBuilder<T extends EntityObject<K>,K extends Serializabl
 	}
 	
 	public <R> ResultSet<R> findAll(Class<R> resultClass,int max,int offset) {
-		ResultSet<R> rs = queryGenerator.build(selection, criteria,resultClass,max,offset);
+		ResultSet<R> rs = queryGenerator.build(getSelection(), criteria,resultClass,max,offset);
 		return rs;
 	}
 
 	public List<ExpressionBuilder> getSelection() {
+		
+		if (selection.isEmpty()) {
+			selection.add(new RootExpressionBuilder<T>());
+		}
+		
 		return selection;
 	}
 	
