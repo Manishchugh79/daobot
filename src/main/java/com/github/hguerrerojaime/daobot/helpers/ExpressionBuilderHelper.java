@@ -13,8 +13,6 @@ import com.github.hguerrerojaime.daobot.core.builders.expression.UpperExpression
 @SuppressWarnings("rawtypes")
 public final class ExpressionBuilderHelper {
 
-	private ExpressionBuilderHelper() {}
-
     public static <T> LiteralExpressionBuilder<T> literal(T value) {
         return new LiteralExpressionBuilder<T>(value);
     }

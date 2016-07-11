@@ -44,6 +44,12 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
 			<scope>test</scope>
+			<exclusions>
+			   <exclusion>
+			      <groupId>org.jboss.logging</groupId>
+			      <artifactId>jboss-logging</artifactId>
+			   </exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -144,12 +150,24 @@
 		    <artifactId>spock-spring</artifactId>
 		    <version>1.0-groovy-2.4</version>
 		    <scope>test</scope>
+		    <exclusions>
+			    <exclusion>  <!-- declare the exclusion here -->
+		          <groupId>org.codehaus.groovy</groupId>
+		          <artifactId>groovy-all</artifactId>
+		        </exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.spockframework</groupId>
 			<artifactId>spock-core</artifactId>
 			<version>1.0-groovy-2.4</version>
 			<scope>test</scope>
+			<exclusions>
+			    <exclusion>  <!-- declare the exclusion here -->
+		          <groupId>org.codehaus.groovy</groupId>
+		          <artifactId>groovy-all</artifactId>
+		        </exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
@@ -166,9 +184,13 @@
 		  <!-- this avoids affecting your version of Groovy/Spock -->
 		  <exclusions>
 		    <exclusion>
-		      <groupId>*</groupId>
-		      <artifactId>*</artifactId>
-		    </exclusion>
+	          <groupId>org.spockframework</groupId>
+	          <artifactId>spock-core</artifactId>
+	        </exclusion>
+		    <exclusion>  <!-- declare the exclusion here -->
+	          <groupId>org.codehaus.groovy</groupId>
+	          <artifactId>groovy-all</artifactId>
+	        </exclusion>
 		  </exclusions>
 		</dependency>
 		

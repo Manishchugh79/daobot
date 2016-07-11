@@ -38,34 +38,12 @@ public class QuerySort {
 		return sort;
 	}
 
-
-
-
-	/**
-	 * @param sort - The field to be sorted
-	 */
-	public void setSort(String sort) {
-		this.sort = sort;
-	}
-
-
-
-
+	
 	/**
 	 * @return the order that the field is going to be sorted
 	 */
 	public Order getOrder() {
 		return order;
-	}
-
-
-
-
-	/**
-	 * @param order - the order that the field is going to be sorted
-	 */
-	public void setOrder(Order order) {
-		this.order = order;
 	}
 
 

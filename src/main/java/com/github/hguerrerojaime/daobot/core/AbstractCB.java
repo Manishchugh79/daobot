@@ -8,16 +8,6 @@ public abstract class AbstractCB {
 	private List<QueryFilter> filters;
 	private List<QuerySort> sortList;
 	private FilterGroupType filterGroupType;
-
-
-	/**
-	 * Constructor with a default encapsulating AND filterGroupType
-	 * 
-	 * @param filterGroupType
-	 */
-	public AbstractCB() {
-		this(FilterGroupType.AND);
-	}
 	
 	/**
 	 * Constructor indicating the encapsulating filterGroupType

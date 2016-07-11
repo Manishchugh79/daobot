@@ -28,14 +28,6 @@ public enum FilterGroupType {
                 List<Predicate> criteriaList) {
             return criteriaBuilder.not(criteriaBuilder.and(criteriaList
                     .toArray(new Predicate[0])));
-        }}),
-    NOR(new GroupPredicateBuilder(){
-
-        @Override
-        public Predicate build(CriteriaBuilder criteriaBuilder,
-                List<Predicate> criteriaList) {
-            return criteriaBuilder.not(criteriaBuilder.or(criteriaList
-                    .toArray(new Predicate[0])));
         }});
     
     private GroupPredicateBuilder gpb;

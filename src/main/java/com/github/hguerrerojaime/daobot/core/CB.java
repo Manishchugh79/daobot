@@ -25,18 +25,9 @@ public class CB extends AbstractCB {
 	 *
 	 */
 	public CB() {
-		this(FilterGroupType.AND);
+		super(FilterGroupType.AND);
 	}
 
-	/**
-	 * Constructor indicating the encapsulating filterGroupType
-	 *
-	 * @param filterGroupType
-	 */
-	public CB(FilterGroupType filterGroupType){
-		super(filterGroupType);
-
-	}
 
 	/**
 	 * Builds and returns a FilterGroup
@@ -80,8 +71,6 @@ public class CB extends AbstractCB {
 	public CB or(CB filterBuilder){
 
 		FilterGroup filterGroup = filterBuilder.build();
-		filterGroup.setGroupType(FilterGroupType.AND);
-
 		filterGroup.setGroupType(FilterGroupType.OR);
 		addQueryFilter(filterGroup);
 		return this;
@@ -93,19 +82,8 @@ public class CB extends AbstractCB {
 	 * @return
 	 */
 	public CB not(CB filterBuilder){
-
 		FilterGroup filterGroup = filterBuilder.build();
-
-		if(filterGroup.getGroupType().equals(FilterGroupType.OR)){
-			filterGroup.setGroupType(FilterGroupType.NOR);
-		}else if(filterGroup.getGroupType().equals(FilterGroupType.AND)){
-			filterGroup.setGroupType(FilterGroupType.NAND);
-		}else if(filterGroup.getGroupType().equals(FilterGroupType.NAND)){
-			filterGroup.setGroupType(FilterGroupType.AND);
-		}else if(filterGroup.getGroupType().equals(FilterGroupType.NOR)){
-			filterGroup.setGroupType(FilterGroupType.OR);
-		}
-
+		filterGroup.setGroupType(FilterGroupType.NAND);
 		addQueryFilter(filterGroup);
 
 		return this;
@@ -258,7 +236,7 @@ public class CB extends AbstractCB {
 	}
 
 	public CB ilike(ExpressionBuilder eb1,ExpressionBuilder eb2){
-		return ilike(upper(eb1),upper(eb2));
+		return like(upper(eb1),upper(eb2));
 	}
 
 	public CB ilike(String fieldName,String value){

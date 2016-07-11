@@ -12,10 +12,6 @@ public class FilterGroup implements QueryFilter {
 	private List<QueryFilter> filters;
 	private FilterGroupType groupType;
 	
-	public FilterGroup(){
-		this(FilterGroupType.AND);
-	}
-	
 	protected FilterGroup(FilterGroupType groupType){
 		this.groupType = groupType;
 	}
