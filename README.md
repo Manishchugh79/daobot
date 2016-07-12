@@ -5,7 +5,7 @@
 
 - Database Queries made easy to read and to maintain.
 
-- Can transform JSON Objects into queries for Back-End/Front-End communication. Let's call it JSON Query Language, or JSQL for now (Details Below).
+- Removed JSON Queries support, will add in another project.
 
 ----------
 
@@ -20,9 +20,9 @@ Find all Books where "title" like "mon%"
 		final String dynamicField = "title";
 		final String query= "mon%";
 			
-		DResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB(){{
-			 like(dynamicField,query);
-		}});
+		ResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB()
+			 .like(dynamicField,query)
+		);
 			
 			
 		assertFalse(bookResultSet.list().isEmpty());
@@ -35,13 +35,12 @@ Find all Books where release date is today and their units bought are greater th
 	@Transactional
 	public void testCustomQuery(){
 		
-		DResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB(){{
-			eq("releaseDate",new Date());
-			ge("unitsBought",1000);
+		ResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB()
+			.eq("releaseDate",new Date())
+			.ge("unitsBought",1000)
+			.sort("unitsBought")
 			
-			sort("unitsBought");
-			
-		}},10,0);
+		,10,0);
 		
 		assertTrue(!bookResultSet.list().isEmpty());
 		assertTrue(bookResultSet.count() > 0);
@@ -57,14 +56,11 @@ Find all Books where id equals 100 or title equals "I Love Grails"
 		final Long desiredId = 100L;
 		final String desiredBookTitle = "I Love Grails";
 		
-		DResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB(){{
-		
-			or(new FB(){{
-				idEq(desiredId);
-				eq("title",desiredBookTitle);
-			}});
-			
-		}},10,0);
+		ResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB()
+			.or(new CB()
+				.eq("id",desiredId)
+				.eq("title",desiredBookTitle)
+			),10,0);
 		
 		assertTrue(!bookResultSet.list().isEmpty());
 		assertTrue(bookResultSet.count() > 0);
@@ -120,72 +116,4 @@ The DAO Implementation
 			super(BookEO.class);
 		}
 	
-	}
-
-# JSON Query Languaje (JSQL)
-
-This is pretty much a JSON object that allows the use of dynamic queries through the Front-End (It uses Jackson JSON processing api).
-
-Implementation Test
-
-	@Test
-	@Transactional
-	public void testSearchAuthorWithBookCriteria() throws JsonParseException, JsonMappingException, IOException{
-        
-        //Load your JSON query string from somewhere
-        String jsonQuery = TestUtils.loadJsonQuery("bookQuery.json"); 
-        
-        DResultSet<BookEO> bookRS = bookDAO.findAll(new JsQLCriteriaQuery(jsonQuery));
-         
-        assertTrue(bookRS.count() > 0);
-    }
-    
-bookQuery.json
-
-	{
-		"eq": [
-			["title","I Love Grails"]
-		]
-		
-	}
-	
-JSQL Syntax
-
-	{
-		"condition":[
-			...place all the blocks of this condition type here
-			[condition arguments]
-		],
-		
-		...optional sort if you want
-		"sort":[
-			["sortField1"], ..default asc
-			["sortField2","desc"] order defined explicit
-		]
-	}
-
-# Some JSQL Examples
-
-Find all books where title is neither ilike (case-insensitive like) ornare% nor Vestibulum% and unitsSold are greater than 20, order by id desc
-
-	{
-		"not":[{
-			"or": [{
-				"ilike":[ 
-					["title","ornare%"],
-					["title","Vestibulum%"] 
-				]
-			}]
-		}],
-		"gt":[ ["unitsSold",20] ],
-		"sort":[ ["id","desc"] ]
-	}
-
-Find all books where title like "Vestibulum%" and unitsSold equals to 0
-
-	{
-		"like":[ 
-			["title","Vestibulum%"] 
-		],
-		"eq":[ ["unitsSold",0] ]
 	}

@@ -3,7 +3,9 @@ package com.github.hguerrerojaime.daobot.core.builders.predicate.utils;
 import com.github.hguerrerojaime.daobot.core.builders.expression.ExpressionBuilder;
 
 /**
- * Created by G834244 on 06/02/2016.
+ * Predicate Builder utility methods
+ * 
+ * @author Humberto Guerrero Jaime
  */
 public final class PredicateBuilderUtils {
 

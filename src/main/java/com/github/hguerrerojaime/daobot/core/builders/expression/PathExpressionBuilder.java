@@ -4,7 +4,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Path;
 
 /**
- * Created by G834244 on 06/02/2016.
+ * Builds a path expression
+ * 
+ * @author Humberto Guerrero Jaime
  */
 public class PathExpressionBuilder implements ExpressionBuilder<Path<?>> {
 

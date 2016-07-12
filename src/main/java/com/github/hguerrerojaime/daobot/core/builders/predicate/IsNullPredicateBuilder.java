@@ -11,7 +11,9 @@ import javax.persistence.criteria.Predicate;
 import java.io.Serializable;
 
 /**
- * Created by G834244 on 06/02/2016.
+ * Builds a isNull predicate
+ * 
+ * @author Humberto Guerrero Jaime
  */
 @SuppressWarnings({"rawtypes","unchecked"})
 public class IsNullPredicateBuilder implements PredicateBuilder {

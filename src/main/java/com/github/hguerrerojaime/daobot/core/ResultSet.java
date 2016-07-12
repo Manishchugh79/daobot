@@ -4,9 +4,11 @@ import java.util.List;
 import javax.persistence.Query;
 
 /**
+ * Encapsulates the result query and an optional count query
+ * 
  * @author Humberto Guerrero Jaime
  *
- * @param <T> Entity Object Type
+ * @param <T>
  */
 @SuppressWarnings("unchecked")
 public class ResultSet<T> {

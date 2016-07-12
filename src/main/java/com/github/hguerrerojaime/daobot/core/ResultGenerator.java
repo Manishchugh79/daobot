@@ -17,12 +17,14 @@ import com.github.hguerrerojaime.daobot.core.builders.expression.ExpressionBuild
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
 /**
+ * Class for generating results from queries
+ * 
  * @author Humberto Guerrero Jaime
  *
  * @param <T> the Type of the Entity Object
  * @param <K> the Primary Key for the Entity Object
  */
-public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
+public class ResultGenerator<T extends EntityObject<K>, K extends Serializable> {
 
 	//
     // instance variables
@@ -42,7 +44,7 @@ public class QueryGenerator<T extends EntityObject<K>, K extends Serializable> {
 	 * @param entityManager
 	 * @param entityClass
 	 */
-	public QueryGenerator(EntityManager entityManager, Class<T> entityClass) {
+	public ResultGenerator(EntityManager entityManager, Class<T> entityClass) {
 		this.entityClass = entityClass;
 		this.entityManager = entityManager;
 		this.criteriaBuilder = entityManager.getCriteriaBuilder();

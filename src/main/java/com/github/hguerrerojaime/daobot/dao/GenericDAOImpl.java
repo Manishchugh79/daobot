@@ -5,7 +5,7 @@ import java.io.Serializable;
 import com.github.hguerrerojaime.daobot.core.AbstractCB;
 import com.github.hguerrerojaime.daobot.core.CB;
 import com.github.hguerrerojaime.daobot.core.DynamicQueryBuilder;
-import com.github.hguerrerojaime.daobot.core.QueryGenerator;
+import com.github.hguerrerojaime.daobot.core.ResultGenerator;
 import com.github.hguerrerojaime.daobot.core.ResultSet;
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
@@ -121,13 +121,13 @@ public abstract class GenericDAOImpl implements GenericDAO {
 		return new DynamicQueryBuilder<T, K>(getEntityManager(), entityClass);
 	}
 
-    private <T extends EntityObject<K>, K extends Serializable> QueryGenerator<T, K> getQueryGenerator(
+    private <T extends EntityObject<K>, K extends Serializable> ResultGenerator<T, K> getQueryGenerator(
             Class<T> entityClass) {
 
-        QueryGenerator<T, K> queryGenerator = null;
+        ResultGenerator<T, K> queryGenerator = null;
 
         if (getEntityManager() != null) {
-            queryGenerator = new QueryGenerator<T, K>(getEntityManager(),
+            queryGenerator = new ResultGenerator<T, K>(getEntityManager(),
                     entityClass);
         }
 

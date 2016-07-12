@@ -16,6 +16,12 @@ import com.github.hguerrerojaime.daobot.core.builders.predicate.LtPredicateBuild
 import com.github.hguerrerojaime.daobot.core.builders.predicate.NePredicateBuilder;
 import com.github.hguerrerojaime.daobot.core.builders.predicate.PredicateBuilder;
 
+/**
+ * Condition Filter Types with their own PredicateBuilders
+ * 
+ * @author Humberto Guerrero Jaime
+ *
+ */
 public enum ConditionFilterType {
     BETWEEN("between",3,new BetweenPredicateBuilder()),
     EQ("eq",2,new EqPredicateBuilder()),

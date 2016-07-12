@@ -5,7 +5,9 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 
 /**
- * Created by G834244 on 06/02/2016.
+ * Builds a upper expression
+ * 
+ * @author Humberto Guerrero Jaime
  */
 @SuppressWarnings({"rawtypes","unchecked"})
 public class UpperExpressionBuilder implements ExpressionBuilder<Expression<String>> {

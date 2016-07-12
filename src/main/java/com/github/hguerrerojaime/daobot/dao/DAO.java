@@ -41,7 +41,7 @@ import com.github.hguerrerojaime.daobot.eo.EntityObject;
 	
 
 	/**
-	 * Same as findBy(new JPACriteriaBuilder());
+	 * Same as findBy(new CB());
 	 * Fetches the first record it finds, not very useful
 	 * 
 	 * @return The Instance
@@ -51,10 +51,10 @@ import com.github.hguerrerojaime.daobot.eo.EntityObject;
 	/**
 	 * Finds the first record matching the given criteria
 	 * 
-	 * @param criteriaBuilder - The criteria to be met (Filters, Orders)
+	 * @param criteria - The criteria to be met (Filters, Orders)
 	 * @return The Instance
 	 */
-	 T find(CB criteriaBuilder);
+	 T find(CB criteria);
 	
 	
 	/**
@@ -78,25 +78,25 @@ import com.github.hguerrerojaime.daobot.eo.EntityObject;
 	
 	
 	/**
-	 * Same as findAllBy(criteriaBuilder,0,0);
+	 * Same as findAllBy(criteria,0,0);
 	 * Fetches ALL the records matching the given criteria
 	 * 
-	 * @param criteriaBuilder - The criteria to be met (Filters, Orders)
+	 * @param criteria - The criteria to be met (Filters, Orders)
 	 * @return JPAResulset containing the fetched records and the total record count
 	 */
-	 ResultSet<T> findAll(AbstractCB criteriaBuilder);
+	 ResultSet<T> findAll(AbstractCB criteria);
 	
 	
 	/**
 	 * Fetches all the records matching the given criteria
 	 * paginating the results
 	 * 
-	 * @param criteriaBuilder - The criteria to be met (Filters, Orders)
+	 * @param criteria - The criteria to be met (Filters, Orders)
 	 * @param max - The maximum number of records to be fetched
 	 * @param offset - The first record position to be fetched
 	 * @return JPAResulset containing the fetched records and the total record count
 	 */
-	 ResultSet<T> findAll(AbstractCB criteriaBuilder,int max,int offset);
+	 ResultSet<T> findAll(AbstractCB criteria,int max,int offset);
 	
 
 	/**

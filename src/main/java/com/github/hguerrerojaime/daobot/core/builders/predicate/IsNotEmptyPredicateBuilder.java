@@ -12,7 +12,9 @@ import com.github.hguerrerojaime.daobot.core.builders.expression.ExpressionBuild
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
 /**
- * Created by G834244 on 06/02/2016.
+ * Builds a isNotEmpty predicate
+ * 
+ * @author Humberto Guerrero Jaime
  */
 @SuppressWarnings({"rawtypes","unchecked"})
 public class IsNotEmptyPredicateBuilder implements PredicateBuilder {

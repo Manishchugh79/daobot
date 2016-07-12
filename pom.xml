@@ -8,7 +8,7 @@
     
     <name>DAOBOT</name>
 	<description>Java DAO (Data Access Object) Generics. Database Queries made easy to read and to maintain, Can transform JSON Objects into queries for Back-End/Front-End communication</description>
-	<url>https://github.com/hguerrerojaime/daobot</url>
+	<url>https://github.com/hguerrerojaime</url>
 
 	<licenses>
 	    <license>
@@ -17,7 +17,14 @@
 	      <distribution>repo</distribution>
 	    </license>
 	</licenses>
-     
+	
+	<developers>
+        <developer>
+            <name>Humberto Guerrero Jaime</name>
+            <email>hguerrerojaime@gmail.com</email>
+        </developer>
+    </developers>
+
     <properties>
 		<spring.version>4.1.1.RELEASE</spring.version>
 		<hibernate.version>4.2.7.Final</hibernate.version>
@@ -215,6 +222,34 @@
 
 		<plugins>
 			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+ 
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.3</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <stagingProfileId>19375019933d12</stagingProfileId>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+		
+		
+			<plugin>
 				<groupId>org.codehaus.gmavenplus</groupId>
 				<artifactId>gmavenplus-plugin</artifactId>
 				<version>1.5</version>
@@ -260,6 +295,24 @@
 		            </includes>
 		        </configuration>
 		    </plugin>
+		    
+		    
+		    <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+            </plugin>
+		    
         </plugins>
     </build>
     

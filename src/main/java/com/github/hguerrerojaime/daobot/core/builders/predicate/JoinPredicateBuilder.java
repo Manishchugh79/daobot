@@ -16,7 +16,9 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 
 /**
- * Created by G834244 on 06/02/2016.
+ * Builds a join predicate
+ * 
+ * @author Humberto Guerrero Jaime
  */
 @SuppressWarnings({"rawtypes","unchecked"})
 public class JoinPredicateBuilder implements PredicateBuilder {

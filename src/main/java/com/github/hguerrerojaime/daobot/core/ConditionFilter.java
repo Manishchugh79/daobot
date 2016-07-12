@@ -1,6 +1,10 @@
 package com.github.hguerrerojaime.daobot.core;
 
 /**
+ * Condition Filter Class
+ * 
+ * is added to the filter list
+ * 
  * @author Humberto Guerrero Jaime
  *
  */
@@ -15,11 +19,17 @@ public class ConditionFilter implements QueryFilter {
 		this.args = args;
 	}
 
+	/**
+	 * @return the condition type
+	 */
 	public ConditionFilterType  getConditionType() {
 		return conditionType;
 	}
 
 
+	/**
+	 * @return the condition arguments
+	 */
 	public Object[] getArgs() {
 		return args;
 	}

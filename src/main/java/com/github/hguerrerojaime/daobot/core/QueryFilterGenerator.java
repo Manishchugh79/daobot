@@ -10,6 +10,14 @@ import javax.persistence.criteria.Predicate;
 
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
+/**
+ * Class for generating the filters for the final query
+ * 
+ * @author Humberto Guerrero Jaime
+ *
+ * @param <T>
+ * @param <K>
+ */
 public class QueryFilterGenerator<T extends EntityObject<K>,K extends Serializable> {
 	
 	

@@ -5,7 +5,9 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 
 /**
- * Created by G834244 on 06/02/2016.
+ * Builds a literal expression
+ * 
+ * @author Humberto Guerrero Jaime
  */
 public class LiteralExpressionBuilder<T> implements ExpressionBuilder<Expression<T>> {
 

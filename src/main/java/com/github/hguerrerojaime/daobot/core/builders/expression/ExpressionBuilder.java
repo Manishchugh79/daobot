@@ -4,7 +4,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 /**
- * Created by G834244 on 06/02/2016.
+ * Expression Builder, to generate multiple expressions having a criteriaBuilder and a root path
+ * 
+ * For example to build the column expression from an entity (entity.myProperty)
+ * 
+ * @author Humberto Guerrero Jaime
  */
 public interface ExpressionBuilder<E extends Expression<?>> {
 

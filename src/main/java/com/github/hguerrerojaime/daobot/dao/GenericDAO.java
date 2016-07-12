@@ -34,7 +34,7 @@ import com.github.hguerrerojaime.daobot.eo.EntityObject;
             Class<T> entityClass, K id);
 
     /**
-     * Same as findBy(new JPACriteriaBuilder()); Fetches the first record it
+     * Same as findBy(new CB()); Fetches the first record it
      * finds, not very useful
      * 
      * @return The Instance
@@ -62,7 +62,7 @@ import com.github.hguerrerojaime.daobot.eo.EntityObject;
             Class<T> entityClass);
 
     /**
-     * Same as findAll(new JPAcriteria(),max,offset); Fetches all the
+     * Same as findAll(new CB(),max,offset); Fetches all the
      * records paginating the results
      * 
      * @param max

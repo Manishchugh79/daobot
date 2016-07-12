@@ -10,6 +10,11 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import java.io.Serializable;
 
+/**
+ * Builds a equal predicate
+ * 
+ * @author Humberto Guerrero Jaime
+ */
 @SuppressWarnings({"rawtypes","unchecked"})
 public class EqPredicateBuilder implements PredicateBuilder {
 

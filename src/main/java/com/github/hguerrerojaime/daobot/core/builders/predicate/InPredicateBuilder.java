@@ -13,7 +13,9 @@ import com.github.hguerrerojaime.daobot.core.builders.predicate.utils.PredicateB
 import com.github.hguerrerojaime.daobot.eo.EntityObject;
 
 /**
- * Created by G834244 on 06/02/2016.
+ * Builds a in predicate
+ * 
+ * @author Humberto Guerrero Jaime
  */
 @SuppressWarnings({"rawtypes","unchecked"})
 public class InPredicateBuilder implements PredicateBuilder {
