@@ -9,7 +9,7 @@
 
 ----------
 
-# Criteria Builder (CB) and Filter Builder (FB) Basic Usage
+# Criteria Builder (CB) Basic Usage
 
 Find all Books where "title" like "mon%"
 
