@@ -7,6 +7,8 @@
 
 - Removed JSON Queries support, will add in another project.
 
+- 97% Unit Test Coverage
+
 ----------
 
 # Criteria Builder (CB) Basic Usage
