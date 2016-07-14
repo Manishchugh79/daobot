@@ -68,6 +68,49 @@ Find all Books where id equals 100 or title equals "I Love Grails"
 		assertTrue(bookResultSet.count() > 0);
 		
 	}
+
+
+###Joins	
+Find all Books where authors name case-insensitive like "John D%"
+
+	@Test
+	@Transactional
+	public void testAnotherCustomQuery(){
+	
+		final String name = "John D%";
+		
+		ResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB()
+			//Book's Properties
+			.join("author",new CB()
+			    //Author's properties
+				.ilike("name",name)
+			),10,0);
+		
+		assertTrue(!bookResultSet.list().isEmpty());
+		assertTrue(bookResultSet.count() > 0);
+		
+	}
+	
+Find all Books where units sold greater than 1000 and authors name case-insensitive like "John D%" using left join
+
+	@Test
+	@Transactional
+	public void testAnotherCustomQuery(){
+	
+		final String name = "John D%";
+
+		ResultSet<BookEO> bookResultSet = bookDAO.findAll(new CB()
+			//Book's Properties
+			.gt("unitsSold",1000)
+			.join("author",JoinType.LEFT,new CB()
+			    //Author's properties
+				.ilike("name",name)
+			),10,0);
+		
+		assertTrue(!bookResultSet.list().isEmpty());
+		assertTrue(bookResultSet.count() > 0);
+		
+	}
 	
 # Basic Structure
 
