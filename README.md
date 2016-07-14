@@ -11,6 +11,18 @@
 
 ----------
 
+# Installation
+
+Add this dependenency to your pom
+	<!-- https://mvnrepository.com/artifact/com.github.hguerrerojaime/daobot -->
+	<dependency>
+	    <groupId>com.github.hguerrerojaime</groupId>
+	    <artifactId>daobot</artifactId>
+	    <version>1.0</version>
+	</dependency>
+	
+----------
+
 # Criteria Builder (CB) Basic Usage
 
 Find all Books where "title" like "mon%"
