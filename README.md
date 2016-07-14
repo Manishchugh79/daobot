@@ -14,6 +14,7 @@
 # Installation
 
 Add this dependenency to your pom
+
 	<!-- https://mvnrepository.com/artifact/com.github.hguerrerojaime/daobot -->
 	<dependency>
 	    <groupId>com.github.hguerrerojaime</groupId>
